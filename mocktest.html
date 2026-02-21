@@ -23,6 +23,12 @@ h2 {
     text-align: center;
 }
 
+.timer {
+    text-align: right;
+    font-weight: bold;
+    color: red;
+}
+
 button {
     background-color: #007bff;
     color: white;
@@ -43,6 +49,26 @@ button:hover {
 </style>
 
 <script>
+let timeLeft = 120; // 2 minutes
+
+function startTimer() {
+    let timer = setInterval(function() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+
+        document.getElementById("timer").innerHTML =
+            "Time Left: " + minutes + "m " + seconds + "s";
+
+        timeLeft--;
+
+        if (timeLeft < 0) {
+            clearInterval(timer);
+            alert("Time is up! Test will be submitted.");
+            calculateScore();
+        }
+    }, 1000);
+}
+
 function calculateScore() {
     let score = 0;
 
@@ -65,16 +91,20 @@ function calculateScore() {
         }
     }
 
-    document.getElementById("result").innerHTML = "Your Final Score: " + score;
+    document.getElementById("result").innerHTML =
+        "Your Final Score: " + score;
 }
 </script>
 
 </head>
-<body>
+
+<body onload="startTimer()">
 
 <div class="container">
 
 <h2>Pondicherry Mock Test</h2>
+
+<div class="timer" id="timer"></div>
 
 <p>1. Capital of Puducherry?</p>
 <input type="radio" name="q1" value="wrong"> Chennai<br>
