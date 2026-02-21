@@ -2,7 +2,40 @@
 <html>
 <head>
     <title>Pondicherry Exam Practice</title>
-    <link rel="stylesheet" href="styles/style.css">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f6f9;
+}
+
+h1 {
+    margin-top: 80px;
+}
+
+.menu {
+    margin-top: 50px;
+}
+
+button {
+    display: block;
+    width: 250px;
+    margin: 20px auto;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+</style>
+
 </head>
 
 <body>
@@ -10,22 +43,12 @@
 <h1>Pondicherry Exam Practice</h1>
 
 <div class="menu">
-
-    <button onclick="goToSubject('maths')">Maths</button>
     <button onclick="goToSubject('english')">English</button>
+    <button onclick="goToSubject('maths')">Maths</button>
     <button onclick="goToSubject('reasoning')">Reasoning</button>
     <button onclick="goToSubject('ga')">General Awareness</button>
-    <button onclick="location.href='tests/test.html?type=fullmock'">Full Mock</button>
-    <button onclick="location.href='tests/test.html?type=minimock'">Mini Mock</button>
-    <button onclick="location.href='study/study.html'">Study Material</button>
-
 </div>
 
 <script>
 function goToSubject(subject) {
-    window.location.href = `subjects.html?subject=${subject}`;
-}
-</script>
-
-</body>
-</html>
+    window.location.href = `subjects.html?subject=$
