@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Pondicherry Mock Test</title>
+<title>Pondicherry Mini Mock Test</title>
 
 <style>
 body {
@@ -13,7 +13,7 @@ body {
 .container {
     background: white;
     padding: 20px;
-    max-width: 600px;
+    max-width: 700px;
     margin: auto;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -49,7 +49,7 @@ button:hover {
 </style>
 
 <script>
-let timeLeft = 120; // 2 minutes
+let timeLeft = 105; // 1 min 45 sec
 
 function startTimer() {
     let timer = setInterval(function() {
@@ -71,28 +71,31 @@ function startTimer() {
 
 function calculateScore() {
     let score = 0;
+    let totalQuestions = 5;
+    let attempted = 0;
+    let correct = 0;
+    let wrong = 0;
 
-    let q1 = document.querySelector('input[name="q1"]:checked');
-    let q2 = document.querySelector('input[name="q2"]:checked');
-
-    if (q1) {
-        if (q1.value == "correct") {
-            score += 1;
-        } else {
-            score -= 0.25;
-        }
-    }
-
-    if (q2) {
-        if (q2.value == "correct") {
-            score += 1;
-        } else {
-            score -= 0.25;
+    for (let i = 1; i <= 5; i++) {
+        let answer = document.querySelector('input[name="q'+i+'"]:checked');
+        if (answer) {
+            attempted++;
+            if (answer.value == "correct") {
+                score += 1;
+                correct++;
+            } else {
+                score -= 0.25;
+                wrong++;
+            }
         }
     }
 
     document.getElementById("result").innerHTML =
-        "Your Final Score: " + score;
+        "Total Questions: " + totalQuestions + "<br>" +
+        "Attempted: " + attempted + "<br>" +
+        "Correct: " + correct + "<br>" +
+        "Wrong: " + wrong + "<br>" +
+        "Final Score: " + score;
 }
 </script>
 
@@ -102,21 +105,47 @@ function calculateScore() {
 
 <div class="container">
 
-<h2>Pondicherry Mock Test</h2>
+<h2>Pondicherry Mini Mock Test</h2>
 
 <div class="timer" id="timer"></div>
 
-<p>1. Capital of Puducherry?</p>
-<input type="radio" name="q1" value="wrong"> Chennai<br>
-<input type="radio" name="q1" value="correct"> Puducherry<br>
-<input type="radio" name="q1" value="wrong"> Karaikal<br>
+<p><b>1. English:</b> Choose the correct synonym of "Rapid".</p>
+<input type="radio" name="q1" value="wrong"> Slow<br>
+<input type="radio" name="q1" value="correct"> Fast<br>
+<input type="radio" name="q1" value="wrong"> Late<br>
+<input type="radio" name="q1" value="wrong"> Calm<br>
 
 <br>
 
-<p>2. 10 + 5 = ?</p>
-<input type="radio" name="q2" value="wrong"> 12<br>
-<input type="radio" name="q2" value="correct"> 15<br>
-<input type="radio" name="q2" value="wrong"> 20<br>
+<p><b>2. Maths:</b> 12 × 8 = ?</p>
+<input type="radio" name="q2" value="wrong"> 88<br>
+<input type="radio" name="q2" value="correct"> 96<br>
+<input type="radio" name="q2" value="wrong"> 108<br>
+<input type="radio" name="q2" value="wrong"> 86<br>
+
+<br>
+
+<p><b>3. Reasoning:</b> Find next number: 2, 6, 12, 20, ?</p>
+<input type="radio" name="q3" value="wrong"> 28<br>
+<input type="radio" name="q3" value="wrong"> 26<br>
+<input type="radio" name="q3" value="correct"> 30<br>
+<input type="radio" name="q3" value="wrong"> 32<br>
+
+<br>
+
+<p><b>4. General Awareness:</b> Puducherry is a:</p>
+<input type="radio" name="q4" value="wrong"> State<br>
+<input type="radio" name="q4" value="correct"> Union Territory<br>
+<input type="radio" name="q4" value="wrong"> District<br>
+<input type="radio" name="q4" value="wrong"> Municipality<br>
+
+<br>
+
+<p><b>5. Vocabulary:</b> Opposite of "Expand" is:</p>
+<input type="radio" name="q5" value="wrong"> Grow<br>
+<input type="radio" name="q5" value="correct"> Contract<br>
+<input type="radio" name="q5" value="wrong"> Increase<br>
+<input type="radio" name="q5" value="wrong"> Develop<br>
 
 <br><br>
 <button onclick="calculateScore()">Submit Test</button>
