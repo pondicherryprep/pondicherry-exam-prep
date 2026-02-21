@@ -3,6 +3,45 @@
 <head>
 <title>Pondicherry Mock Test</title>
 
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    font-weight: bold;
+    margin-top: 15px;
+}
+</style>
+
 <script>
 function calculateScore() {
     let score = 0;
@@ -33,12 +72,16 @@ function calculateScore() {
 </head>
 <body>
 
+<div class="container">
+
 <h2>Pondicherry Mock Test</h2>
 
 <p>1. Capital of Puducherry?</p>
 <input type="radio" name="q1" value="wrong"> Chennai<br>
 <input type="radio" name="q1" value="correct"> Puducherry<br>
 <input type="radio" name="q1" value="wrong"> Karaikal<br>
+
+<br>
 
 <p>2. 10 + 5 = ?</p>
 <input type="radio" name="q2" value="wrong"> 12<br>
@@ -49,6 +92,8 @@ function calculateScore() {
 <button onclick="calculateScore()">Submit Test</button>
 
 <p id="result"></p>
+
+</div>
 
 </body>
 </html>
