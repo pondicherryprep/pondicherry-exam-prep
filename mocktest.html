@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pondicherry Mock Test</title>
+
+<script>
+function calculateScore() {
+    let score = 0;
+
+    let q1 = document.querySelector('input[name="q1"]:checked');
+    let q2 = document.querySelector('input[name="q2"]:checked');
+
+    if (q1) {
+        if (q1.value == "correct") {
+            score += 1;
+        } else {
+            score -= 0.25;
+        }
+    }
+
+    if (q2) {
+        if (q2.value == "correct") {
+            score += 1;
+        } else {
+            score -= 0.25;
+        }
+    }
+
+    document.getElementById("result").innerHTML = "Your Final Score: " + score;
+}
+</script>
+
+</head>
+<body>
+
+<h2>Pondicherry Mock Test</h2>
+
+<p>1. Capital of Puducherry?</p>
+<input type="radio" name="q1" value="wrong"> Chennai<br>
+<input type="radio" name="q1" value="correct"> Puducherry<br>
+<input type="radio" name="q1" value="wrong"> Karaikal<br>
+
+<p>2. 10 + 5 = ?</p>
+<input type="radio" name="q2" value="wrong"> 12<br>
+<input type="radio" name="q2" value="correct"> 15<br>
+<input type="radio" name="q2" value="wrong"> 20<br>
+
+<br><br>
+<button onclick="calculateScore()">Submit Test</button>
+
+<p id="result"></p>
+
+</body>
+</html>
