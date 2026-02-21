@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test Page</title>
+    <title>Dynamic Test</title>
 </head>
 <body>
 
-<h2>Test Page</h2>
+<h2>Dynamic Test Page</h2>
 
 <div id="question-container"></div>
 
 <!-- Load question bank FIRST -->
 <script src="questions.js"></script>
 
-<!-- Then write test logic -->
+<!-- Main Test Script -->
 <script>
 
-console.log(questionBank); // check if it loads
+const params = new URLSearchParams(window.location.search);
 
-</script>
+const subject = params.get("subject") || "maths";
+const className = params.get("class") || "class6";
+const topic = params.get("topic") || "algebra";
 
-</body>
-</html>
+const questions = questionBank[subject][className][topic];
+
+let currentQuestion = 0;
+
+function loadQuestion() {
+    const q = questions[currentQuestion];
+
+    document.getElementById("question-container").innerHTML = `
+        <h3>${q.question}</h3>
+        ${q.options.map((opt, index) =>
+            `<button onclick="checkAnswer(${index})">${opt}</button><br><br>`
+        ).join("")}
+    `;
+}
+
+function checkAnsw
