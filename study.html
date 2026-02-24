@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Material</title>
+<style>
+body {
+    font-family: Arial;
+    padding: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<h2 id="title"></h2>
+<div id="content"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const std = params.get("std");
+const lesson = params.get("lesson");
+
+document.getElementById("title").innerText =
+"Study Material - " + std + "th Std";
+
+document.getElementById("content").innerHTML =
+"<h3>" + lesson + "</h3>" +
+"<p>Content will be added here later.</p>";
+</script>
+
+</body>
+</html>
