@@ -323,8 +323,13 @@ return `
 function handleAction(action, lessonName) {
 
 if(action === "study") {
-    window.location.href =
-    `study.html?std=${std}&lesson=${encodeURIComponent(lessonName)}`;
+
+    if(std == "10" && lessonName.includes("World War")) {
+        window.location.href = "study/10/history/unit1.html";
+        return;
+    }
+
+    alert("Study Material Coming Soon");
 }
 
 if(action === "test") {
