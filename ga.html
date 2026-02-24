@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>General Awareness</title>
+<style>
+body {
+    font-family: Arial;
+    background: #f4f6f9;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.term {
+    margin-top: 25px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.lesson {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    padding: 5px 0;
+}
+
+select {
+    padding: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<h2 id="title"></h2>
+
+<div id="content"></div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const std = params.get("std");
+
+const title = document.getElementById("title");
+const content = document.getElementById("content");
+
+title.innerText = "General Awareness - " + std + "th Std";
+
+/* ---------------- 6TH STD ---------------- */
+
+if(std == "6") {
+
+content.innerHTML = `
+
+<h3>Science - Term I</h3>
+<div class="term">
+${lessonRow("Measurements")}
+${lessonRow("Force and Motion")}
+${lessonRow("Matter around Us")}
+${lessonRow("The World of Plants")}
+${lessonRow("The World of Animals")}
+${lessonRow("Health and Hygiene")}
+</div>
+
+<h3>Science - Term II</h3>
+<div class="term">
+${lessonRow("Heat")}
+${lessonRow("Electricity")}
+${lessonRow("Changes Around Us")}
+${lessonRow("Air")}
+${lessonRow("The Cell")}
+${lessonRow("Human Organ Systems")}
+${lessonRow("Parts of Computer")}
+</div>
+
+<h3>Science - Term III</h3>
+<div class="term">
+${lessonRow("Magnetism")}
+${lessonRow("Water")}
+${lessonRow("Chemistry in Everyday Life")}
+${lessonRow("Our Environment")}
+${lessonRow("Plants in Daily Life")}
+${lessonRow("Hardware and Software")}
+</div>
+
+<h3>Social - Term I</h3>
+<div class="term">
+${lessonRow("What is History?")}
+${lessonRow("Human Evolution")}
+${lessonRow("Indus Civilisation")}
+${lessonRow("Ancient Cities of Tamilagam")}
+${lessonRow("The Universe and Solar System")}
+${lessonRow("Land and Oceans")}
+${lessonRow("Understanding Diversity")}
+${lessonRow("Achieving Equality")}
+</div>
+
+`;
+
+}
+
+/* ---------------- 7TH STD ---------------- */
+
+else if(std == "7") {
+
+content.innerHTML = `
+
+<h3>Science - Term I</h3>
+<div class="term">
+${lessonRow("Measurement")}
+${lessonRow("Force and Motion")}
+${lessonRow("Matter Around Us")}
+${lessonRow("Atomic Structure")}
+${lessonRow("Reproduction in Plants")}
+${lessonRow("Health and Hygiene")}
+${lessonRow("Visual Communication")}
+</div>
+
+<h3>Science - Term II</h3>
+<div class="term">
+${lessonRow("Heat and Temperature")}
+${lessonRow("Electricity")}
+${lessonRow("Changes Around Us")}
+${lessonRow("Cell Biology")}
+${lessonRow("Basis of Classification")}
+${lessonRow("Digital Painting")}
+</div>
+
+<h3>Science - Term III</h3>
+<div class="term">
+${lessonRow("Light")}
+${lessonRow("Universe and Space")}
+${lessonRow("Polymer Chemistry")}
+${lessonRow("Chemistry in Daily Life")}
+${lessonRow("Animals in Daily Life")}
+${lessonRow("Visual Communication")}
+</div>
+
+`;
+
+}
+
+/* ---------------- 8TH–12TH ---------------- */
+
+else {
+    content.innerHTML = `
+    <div class="term">
+        <h3>Content Coming Soon</h3>
+    </div>
+    `;
+}
+
+/* -------- LESSON ROW FUNCTION -------- */
+
+function lessonRow(name) {
+return `
+<div class="lesson">
+    <span>${name}</span>
+    <select>
+        <option>Select</option>
+        <option>Study</option>
+        <option>Take Test</option>
+    </select>
+</div>
+`;
+}
+
+</script>
+
+</body>
+</html>
