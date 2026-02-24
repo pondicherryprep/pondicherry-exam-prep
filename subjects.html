@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subject Selection</title>
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background: #f4f6f9;
+}
+
+h2 {
+    margin-top: 40px;
+}
+
+button {
+    display: block;
+    width: 250px;
+    margin: 15px auto;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+</style>
+</head>
+
+<body>
+
+<h2 id="title"></h2>
+
+<div id="content"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const subject = params.get("subject");
+
+const title = document.getElementById("title");
+const content = document.getElementById("content");
+
+if(subject === "ga") {
+    title.innerText = "General Awareness - Select Standard";
+
+    for(let i = 6; i <= 12; i++) {
+        content.innerHTML += 
+        `<button onclick="openGA(${i})">${i}th Std</button>`;
+    }
+}
+
+function openGA(std) {
+    window.location.href = `ga.html?std=${std}`;
+}
+</script>
+
+</body>
+</html>
