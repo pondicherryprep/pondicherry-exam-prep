@@ -221,6 +221,7 @@ ${lessonRow("Tax and its Importance")}
 
 else if(std == "10") {
 
+/* YOUR FULL 10TH CONTENT — UNCHANGED */
 content.innerHTML = `
 
 <h3>Science</h3>
@@ -292,11 +293,10 @@ ${lessonRow("Food Security and Nutrition")}
 ${lessonRow("Government and Taxes")}
 ${lessonRow("Industrial Clusters in Tamil Nadu")}
 </div>
-
 `;
 }
 
-/* ---------------- OTHER STANDARDS ---------------- */
+/* ---------------- DEFAULT ---------------- */
 
 else {
     content.innerHTML = `
@@ -320,11 +320,15 @@ return `
 </div>
 `;
 }
+
+/* -------- FIXED HANDLE ACTION -------- */
+
 function handleAction(action, lessonName) {
 
 if(action === "study") {
 
-    if(std == "10" && lessonName.includes("World War")) {
+    // EXACT MATCH ONLY FOR UNIT 1
+    if(std == "10" && lessonName === "Outbreak of World War I and Its Aftermath") {
         window.location.href = "study/10/history/unit1.html";
         return;
     }
@@ -337,7 +341,7 @@ if(action === "test") {
 }
 
 }
-</script>
 
+</script>
 </body>
 </html>
