@@ -159,15 +159,27 @@ function lessonRow(name) {
 return `
 <div class="lesson">
     <span>${name}</span>
-    <select>
-        <option>Select</option>
-        <option>Study</option>
-        <option>Take Test</option>
+    <select onchange="handleAction(this.value, '${name}')">
+        <option value="">Select</option>
+        <option value="study">Study</option>
+        <option value="test">Take Test</option>
     </select>
 </div>
 `;
 }
+function handleAction(action, lessonName) {
 
+if(action === "study") {
+    window.location.href =
+    `study.html?std=${std}&lesson=${encodeURIComponent(lessonName)}`;
+}
+
+if(action === "test") {
+    window.location.href =
+    `tests/test.html?subject=ga&std=${std}&lesson=${encodeURIComponent(lessonName)}`;
+}
+
+}
 </script>
 
 </body>
