@@ -153,75 +153,126 @@ answer: 2
 ];
 
 let form = document.getElementById("quizForm");
+let resultBox = document.getElementById("result");
 
-// LOAD QUESTIONS
-questions.forEach((q, index) => {
-    let div = document.createElement("div");
-    div.classList.add("question");
+let storedResult = localStorage.getItem("unit1Result");
 
-    div.innerHTML = `<p>${index+1}. ${q.question}</p>`;
 
-    q.options.forEach((option, i) => {
-        div.innerHTML += `
-        <label>
-            <input type="radio" name="q${index}" value="${i}">
-            ${option}
-        </label><br>`;
+// 🔹 If Already Attempted → Show Solution Page
+if(storedResult){
+    showStoredResult();
+}else{
+    loadQuestions();
+    startTimer();
+}
+
+
+// 🔹 Load Questions
+function loadQuestions(){
+    questions.forEach((q, index) => {
+        let div = document.createElement("div");
+        div.classList.add("question");
+
+        div.innerHTML = `<p>${index+1}. ${q.question}</p>`;
+
+        q.options.forEach((option, i) => {
+            div.innerHTML += `
+            <label>
+                <input type="radio" name="q${index}" value="${i}">
+                ${option}
+            </label><br>`;
+        });
+
+        form.appendChild(div);
     });
+}
 
-    form.appendChild(div);
-});
 
-// SUBMIT FUNCTION
-function submitQuiz() {
+// 🔹 Submit Quiz
+function submitQuiz(){
+
     let score = 0;
+    let userAnswers = [];
 
     questions.forEach((q, index) => {
         let selected = document.querySelector(`input[name="q${index}"]:checked`);
         let options = document.querySelectorAll(`input[name="q${index}"]`);
 
+        let selectedValue = selected ? parseInt(selected.value) : null;
+        userAnswers.push(selectedValue);
+
         options.forEach((option, i) => {
             let label = option.parentElement;
 
-            if(i === q.answer) {
+            if(i === q.answer){
                 label.style.color = "green";
                 label.style.fontWeight = "bold";
             }
 
-            if(selected && parseInt(selected.value) === i && i !== q.answer) {
+            if(selectedValue === i && i !== q.answer){
                 label.style.color = "red";
             }
 
             option.disabled = true;
         });
 
-        if(selected && parseInt(selected.value) === q.answer) {
+        if(selectedValue === q.answer){
             score++;
         }
     });
 
-    document.getElementById("result").innerHTML =
-        "Your Score: " + score + " / " + questions.length;
-
     clearInterval(timerInterval);
+
+    let resultData = {
+        score: score,
+        answers: userAnswers
+    };
+
+    localStorage.setItem("unit1Result", JSON.stringify(resultData));
+
+    showStoredResult();
 }
 
-// TIMER
+
+// 🔹 Show Stored Result Page
+function showStoredResult(){
+
+    let data = JSON.parse(localStorage.getItem("unit1Result"));
+
+    resultBox.innerHTML =
+        `<h3>This is Solution Page</h3>
+         <p>Your Score: ${data.score} / ${questions.length}</p>
+         <button onclick="reattempt()">Reattempt Test</button>`;
+
+    form.style.display = "none";
+}
+
+
+// 🔹 Reattempt
+function reattempt(){
+    localStorage.removeItem("unit1Result");
+    location.reload();
+}
+
+
+// 🔹 TIMER
 let totalTime = questions.length * 10;
 let timeLeft = totalTime;
-
 document.getElementById("time").innerText = timeLeft;
 
-let timerInterval = setInterval(() => {
-    timeLeft--;
-    document.getElementById("time").innerText = timeLeft;
+let timerInterval;
 
-    if(timeLeft <= 0) {
-        clearInterval(timerInterval);
-        alert("Time's up! Auto submitting.");
-        submitQuiz();
-    }
-}, 1000);
+function startTimer(){
+    timerInterval = setInterval(()=>{
+        timeLeft--;
+        document.getElementById("time").innerText = timeLeft;
+
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+    },1000);
+}
 
 </script>
 
