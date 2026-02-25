@@ -239,7 +239,6 @@ function submitQuiz(){
 
         let questionDiv = document.getElementsByClassName("question")[index];
 
-        // Remove old result if exists
         let oldResult = questionDiv.querySelector(".answerResult");
         if(oldResult) oldResult.remove();
 
@@ -279,7 +278,6 @@ function submitQuiz(){
 
     score = score.toFixed(2);
 
-    // Show Final Result at Top
     resultBox.innerHTML = `
         <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
             <h3>Final Score: ${score} / ${questions.length}</h3>
@@ -289,10 +287,10 @@ function submitQuiz(){
             <button onclick="reattempt()">Reattempt Test</button>
         </div>
     `;
-}
+
+    // ✅ MUST BE INSIDE FUNCTION
     localStorage.setItem("unit1Result", "completed");
 }
-
 
 // ===== REATTEMPT =====
 function reattempt(){
