@@ -301,9 +301,6 @@ localStorage.setItem("unit1Result", JSON.stringify(resultData));
     }
 
 // ===== REATTEMPT =====
-function reattempt(){
-    location.reload();
-}
 function showPreviousAttempt(){
 
     let data = JSON.parse(localStorage.getItem("unit1Result"));
@@ -319,6 +316,21 @@ function showPreviousAttempt(){
         }
     });
 
+    // Stop timer display
+    timerDisplay.innerText = "Completed";
+
+    // Show stored result (DO NOT call submitQuiz)
+    resultBox.innerHTML = `
+        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
+            <h3>Final Score: ${lastAttempt.score} / ${questions.length}</h3>
+            <p>✔ Correct: ${lastAttempt.correct}</p>
+            <p>✘ Wrong: ${lastAttempt.wrong}</p>
+            <p>⭕ Not Answered: ${lastAttempt.notAnswered}</p>
+            <p><b>Total Attempts:</b> ${data.attempts.length}</p>
+            <button onclick="reattempt()">Reattempt Test</button>
+        </div>
+    `;
+}
     // Stop timer display
     timerDisplay.innerText = "Completed";
 
