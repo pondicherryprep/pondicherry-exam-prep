@@ -152,23 +152,34 @@ answer: 2
 
 ];
 
+// ===== ELEMENTS =====
 let form = document.getElementById("quizForm");
 let resultBox = document.getElementById("result");
+let timerDisplay = document.getElementById("time");
 
-let storedResult = localStorage.getItem("unit1Result");
-
-
-// 🔹 If Already Attempted → Show Solution Page
-if(storedResult){
-    showStoredResult();
-}else{
-    loadQuestions();
-    startTimer();
-}
+let timerInterval;
+let totalTime = questions.length * 10;
+let timeLeft = totalTime;
 
 
-// 🔹 Load Questions
+// ===== CHECK IF ALREADY ATTEMPTED =====
+window.onload = function() {
+
+    let storedResult = localStorage.getItem("unit1Result");
+
+    if(storedResult){
+        showSolution();
+    } else {
+        loadQuestions();
+        startTimer();
+    }
+};
+
+
+// ===== LOAD QUESTIONS =====
 function loadQuestions(){
+    form.innerHTML = "";
+
     questions.forEach((q, index) => {
         let div = document.createElement("div");
         div.classList.add("question");
@@ -188,7 +199,25 @@ function loadQuestions(){
 }
 
 
-// 🔹 Submit Quiz
+// ===== START TIMER =====
+function startTimer(){
+
+    timerDisplay.innerText = timeLeft;
+
+    timerInterval = setInterval(()=>{
+        timeLeft--;
+        timerDisplay.innerText = timeLeft;
+
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+
+    },1000);
+}
+
+
+// ===== SUBMIT QUIZ =====
 function submitQuiz(){
 
     let score = 0;
@@ -196,32 +225,14 @@ function submitQuiz(){
 
     questions.forEach((q, index) => {
         let selected = document.querySelector(`input[name="q${index}"]:checked`);
-        let options = document.querySelectorAll(`input[name="q${index}"]`);
-
         let selectedValue = selected ? parseInt(selected.value) : null;
+
         userAnswers.push(selectedValue);
-
-        options.forEach((option, i) => {
-            let label = option.parentElement;
-
-            if(i === q.answer){
-                label.style.color = "green";
-                label.style.fontWeight = "bold";
-            }
-
-            if(selectedValue === i && i !== q.answer){
-                label.style.color = "red";
-            }
-
-            option.disabled = true;
-        });
 
         if(selectedValue === q.answer){
             score++;
         }
     });
-
-    clearInterval(timerInterval);
 
     let resultData = {
         score: score,
@@ -230,48 +241,32 @@ function submitQuiz(){
 
     localStorage.setItem("unit1Result", JSON.stringify(resultData));
 
-    showStoredResult();
+    showSolution();
 }
 
 
-// 🔹 Show Stored Result Page
-function showStoredResult(){
+// ===== SHOW SOLUTION PAGE =====
+function showSolution(){
+
+    clearInterval(timerInterval);
+
+    form.style.display = "none";
+    timerDisplay.parentElement.style.display = "none";
 
     let data = JSON.parse(localStorage.getItem("unit1Result"));
 
-    resultBox.innerHTML =
-        `<h3>This is Solution Page</h3>
-         <p>Your Score: ${data.score} / ${questions.length}</p>
-         <button onclick="reattempt()">Reattempt Test</button>`;
-
-    form.style.display = "none";
+    resultBox.innerHTML = `
+        <h3>This is Solution Page</h3>
+        <p>Your Score: ${data.score} / ${questions.length}</p>
+        <button onclick="reattempt()">Reattempt Test</button>
+    `;
 }
 
 
-// 🔹 Reattempt
+// ===== REATTEMPT =====
 function reattempt(){
     localStorage.removeItem("unit1Result");
     location.reload();
-}
-
-
-// 🔹 TIMER
-let totalTime = questions.length * 10;
-let timeLeft = totalTime;
-document.getElementById("time").innerText = timeLeft;
-
-let timerInterval;
-
-function startTimer(){
-    timerInterval = setInterval(()=>{
-        timeLeft--;
-        document.getElementById("time").innerText = timeLeft;
-
-        if(timeLeft <= 0){
-            clearInterval(timerInterval);
-            submitQuiz();
-        }
-    },1000);
 }
 
 </script>
