@@ -228,6 +228,9 @@ function submitQuiz(){
     clearInterval(timerInterval);
 
     let score = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let notAnsweredCount = 0;
 
     questions.forEach((q, index) => {
 
@@ -236,19 +239,37 @@ function submitQuiz(){
 
         let questionDiv = document.getElementsByClassName("question")[index];
 
-        // Remove old result if re-submitted
+        // Remove old result if exists
         let oldResult = questionDiv.querySelector(".answerResult");
         if(oldResult) oldResult.remove();
 
         let resultText = document.createElement("div");
         resultText.classList.add("answerResult");
 
-        if(selectedValue === q.answer){
-            score++;
-            resultText.innerHTML = `<p style="color:green;"><b>✔ Correct</b></p>`;
-        } else {
+        if(selectedValue === null){
+
+            notAnsweredCount++;
             resultText.innerHTML = `
-                <p style="color:red;"><b>✘ Wrong</b></p>
+                <p style="color:orange;"><b>Not Answered</b></p>
+                <p>Correct Answer: ${q.options[q.answer]}</p>
+            `;
+
+        }
+        else if(selectedValue === q.answer){
+
+            score += 1;
+            correctCount++;
+            resultText.innerHTML = `
+                <p style="color:green;"><b>✔ Correct (+1)</b></p>
+            `;
+
+        }
+        else{
+
+            score -= 0.25;
+            wrongCount++;
+            resultText.innerHTML = `
+                <p style="color:red;"><b>✘ Wrong (-0.25)</b></p>
                 <p>Correct Answer: ${q.options[q.answer]}</p>
             `;
         }
@@ -256,14 +277,19 @@ function submitQuiz(){
         questionDiv.appendChild(resultText);
     });
 
-    // Show Score at Top
+    score = score.toFixed(2);
+
+    // Show Final Result at Top
     resultBox.innerHTML = `
-        <div style="background:#f0f0f0; padding:10px; margin-bottom:15px;">
-            <h3>Your Score: ${score} / ${questions.length}</h3>
+        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
+            <h3>Final Score: ${score} / ${questions.length}</h3>
+            <p>✔ Correct: ${correctCount}</p>
+            <p>✘ Wrong: ${wrongCount}</p>
+            <p>⭕ Not Answered: ${notAnsweredCount}</p>
             <button onclick="reattempt()">Reattempt Test</button>
         </div>
     `;
-
+}
     localStorage.setItem("unit1Result", "completed");
 }
 
