@@ -327,24 +327,22 @@ function handleAction(action, lessonName) {
 
     if(action === "study") {
 
-        // EXACT MATCH ONLY FOR UNIT 1
         if(std == "10" && lessonName === "Outbreak of World War I and Its Aftermath") {
             window.location.href = "unit1.html";
-            return;
+        } else {
+            alert("Study Material Coming Soon");
         }
 
-        alert("Study Material Coming Soon");
-    }
+    } 
+    
+    else if(action === "test") {
 
-    if(action === "test") {
-
-        // LINK TEST ONLY FOR UNIT 1
         if(std == "10" && lessonName === "Outbreak of World War I and Its Aftermath") {
             window.location.href = "unit1-test.html";
-            return;
+        } else {
+            alert("Take Test - Coming Soon");
         }
 
-        alert("Take Test - Coming Soon");
     }
 
 }
