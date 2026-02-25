@@ -176,6 +176,38 @@ function submitQuiz() {
 
     questions.forEach((q, index) => {
         let selected = document.querySelector(`input[name="q${index}"]:checked`);
+        let options = document.querySelectorAll(`input[name="q${index}"]`);
+
+        options.forEach((option, i) => {
+            let label = option.parentElement;
+
+            if(i === q.answer) {
+                label.style.color = "green";   // correct answer
+                label.style.fontWeight = "bold";
+            }
+
+            if(selected && parseInt(selected.value) === i && i !== q.answer) {
+                label.style.color = "red";    // wrong selected
+            }
+
+            option.disabled = true; // disable after submit
+        });
+
+        if(selected && parseInt(selected.value) === q.answer) {
+            score++;
+        }
+    });
+
+    document.getElementById("result").innerHTML =
+        "Your Score: " + score + " / " + questions.length;
+
+    clearInterval(timerInterval);
+}
+
+    let score = 0;
+
+    questions.forEach((q, index) => {
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
         if(selected && parseInt(selected.value) === q.answer) {
             score++;
         }
