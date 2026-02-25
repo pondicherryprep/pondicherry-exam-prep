@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit 1 Test - WWI</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Unit 1 – Outbreak of World War I (Test)</h2>
+
+<div class="question">
+<p><b>1) Three empires shattered after WWI:</b></p>
+
+<label>
+<input type="radio" name="q1" value="a">
+a) Germany, Austria-Hungary, Ottomans
+</label><br>
+
+<label>
+<input type="radio" name="q1" value="b">
+b) Germany, Russia, Italy
+</label><br>
+
+<label>
+<input type="radio" name="q1" value="c">
+c) Spain, Portugal, Italy
+</label><br>
+
+<label>
+<input type="radio" name="q1" value="d">
+d) France, Austria, Germany
+</label><br>
+
+</div>
+
+<button onclick="checkAnswers()">Submit</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+function checkAnswers() {
+
+    let score = 0;
+    let total = 1;
+
+    let q1 = document.querySelector('input[name="q1"]:checked');
+
+    if (q1 && q1.value === "a") {
+        score++;
+        document.getElementById("result").innerHTML =
+            "Score: " + score + "/" + total +
+            "<br><span class='correct'>Correct Answer: a) Germany, Austria-Hungary, Ottomans</span>";
+    } else {
+        document.getElementById("result").innerHTML =
+            "Score: " + score + "/" + total +
+            "<br><span class='wrong'>Correct Answer: a) Germany, Austria-Hungary, Ottomans</span>";
+    }
+}
+</script>
+
+</body>
+</html>
