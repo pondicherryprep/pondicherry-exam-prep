@@ -28,7 +28,7 @@ button {
 
 <form id="quizForm"></form>
 
-<button onclick="submitQuiz()">Submit</button>
+<button type="button" onclick="submitQuiz()">Submit</button>
 
 <h3 id="result"></h3>
 
@@ -220,6 +220,8 @@ function startTimer(){
 // ===== SUBMIT QUIZ =====
 function submitQuiz(){
 
+    clearInterval(timerInterval); // stop timer immediately
+
     let score = 0;
     let userAnswers = [];
 
@@ -244,7 +246,6 @@ function submitQuiz(){
     showSolution();
 }
 
-
 // ===== SHOW SOLUTION PAGE =====
 function showSolution(){
 
@@ -266,6 +267,7 @@ function showSolution(){
 // ===== REATTEMPT =====
 function reattempt(){
     localStorage.removeItem("unit1Result");
+    timeLeft = totalTime; // reset timer
     location.reload();
 }
 
