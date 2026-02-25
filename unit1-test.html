@@ -154,6 +154,7 @@ answer: 2
 
 let form = document.getElementById("quizForm");
 
+// LOAD QUESTIONS
 questions.forEach((q, index) => {
     let div = document.createElement("div");
     div.classList.add("question");
@@ -171,6 +172,7 @@ questions.forEach((q, index) => {
     form.appendChild(div);
 });
 
+// SUBMIT FUNCTION
 function submitQuiz() {
     let score = 0;
 
@@ -182,15 +184,15 @@ function submitQuiz() {
             let label = option.parentElement;
 
             if(i === q.answer) {
-                label.style.color = "green";   // correct answer
+                label.style.color = "green";
                 label.style.fontWeight = "bold";
             }
 
             if(selected && parseInt(selected.value) === i && i !== q.answer) {
-                label.style.color = "red";    // wrong selected
+                label.style.color = "red";
             }
 
-            option.disabled = true; // disable after submit
+            option.disabled = true;
         });
 
         if(selected && parseInt(selected.value) === q.answer) {
@@ -204,21 +206,7 @@ function submitQuiz() {
     clearInterval(timerInterval);
 }
 
-    let score = 0;
-
-    questions.forEach((q, index) => {
-        let selected = document.querySelector(`input[name="q${index}"]:checked`);
-        if(selected && parseInt(selected.value) === q.answer) {
-            score++;
-        }
-    });
-
-    document.getElementById("result").innerHTML =
-        "Your Score: " + score + " / " + questions.length;
-
-    clearInterval(timerInterval);
-}
-
+// TIMER
 let totalTime = questions.length * 10;
 let timeLeft = totalTime;
 
