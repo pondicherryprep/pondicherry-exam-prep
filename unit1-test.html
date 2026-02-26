@@ -165,11 +165,10 @@ let timeLeft = totalTime;
 // ===== CHECK IF ALREADY ATTEMPTED =====
 window.onload = function() {
 
-    let forceFresh = sessionStorage.getItem("forceFresh");
+    let isTakingTest = sessionStorage.getItem("inProgress");
     let storedData = localStorage.getItem("unit1Result");
 
-    if(forceFresh === "true"){
-        sessionStorage.removeItem("forceFresh");
+    if(isTakingTest === "true"){
         loadQuestions();
         timeLeft = totalTime;
         startTimer();
@@ -227,6 +226,7 @@ function startTimer(){
 // ===== SUBMIT QUIZ =====
 function submitQuiz(){
 
+    sessionStorage.removeItem("inProgress");
     clearInterval(timerInterval);
 
     let score = 0;
@@ -314,10 +314,7 @@ function submitQuiz(){
 
 // ===== REATTEMPT =====
 function reattempt(){
-
-    // Clear only display state (not stored attempts)
-    sessionStorage.setItem("forceFresh", "true");
-
+    sessionStorage.setItem("inProgress", "true");
     location.reload();
 }
 
