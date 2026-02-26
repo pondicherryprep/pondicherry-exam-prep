@@ -165,11 +165,19 @@ let timeLeft = totalTime;
 // ===== CHECK IF ALREADY ATTEMPTED =====
 window.onload = function() {
 
+    let forceFresh = sessionStorage.getItem("forceFresh");
     let storedData = localStorage.getItem("unit1Result");
 
-    if(storedData){
+    if(forceFresh === "true"){
+        sessionStorage.removeItem("forceFresh");
+        loadQuestions();
+        timeLeft = totalTime;
+        startTimer();
+    }
+    else if(storedData){
         showPreviousAttempt();
-    } else {
+    }
+    else{
         loadQuestions();
         startTimer();
     }
@@ -306,9 +314,12 @@ function submitQuiz(){
 
 // ===== REATTEMPT =====
 function reattempt(){
+
+    // Clear only display state (not stored attempts)
+    sessionStorage.setItem("forceFresh", "true");
+
     location.reload();
 }
-
 
 // ===== SHOW PREVIOUS ATTEMPT =====
 function showPreviousAttempt(){
