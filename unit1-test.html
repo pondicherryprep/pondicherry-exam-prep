@@ -281,26 +281,36 @@ function submitQuiz(){
             <button onclick="reattempt()">Reattempt Test</button>
         </div>
     `;
-// ===== STORE ATTEMPT DATA =====
 
-let storedData = localStorage.getItem("unit1Result");
-let resultData = storedData ? JSON.parse(storedData) : { attempts: [] };
+    // ===== STORE ATTEMPT DATA =====
 
-resultData.attempts.push({
-    score: score,
-    correct: correctCount,
-    wrong: wrongCount,
-    notAnswered: notAnsweredCount,
-    answers: questions.map((q, index) => {
-        let selected = document.querySelector(`input[name="q${index}"]:checked`);
-        return selected ? parseInt(selected.value) : null;
-    })
-});
+    let storedData = localStorage.getItem("unit1Result");
+    let resultData = storedData ? JSON.parse(storedData) : { attempts: [] };
 
-localStorage.setItem("unit1Result", JSON.stringify(resultData));
-    }
+    resultData.attempts.push({
+        score: score,
+        correct: correctCount,
+        wrong: wrongCount,
+        notAnswered: notAnsweredCount,
+        answers: questions.map((q, index) => {
+            let selected = document.querySelector(`input[name="q${index}"]:checked`);
+            return selected ? parseInt(selected.value) : null;
+        })
+    });
+
+    localStorage.setItem("unit1Result", JSON.stringify(resultData));
+
+}  // <<< This closes submitQuiz properly
+
+
 
 // ===== REATTEMPT =====
+function reattempt(){
+    location.reload();
+}
+
+
+// ===== SHOW PREVIOUS ATTEMPT =====
 function showPreviousAttempt(){
 
     let data = JSON.parse(localStorage.getItem("unit1Result"));
@@ -316,10 +326,10 @@ function showPreviousAttempt(){
         }
     });
 
-    // Stop timer display
+    // Stop timer text
     timerDisplay.innerText = "Completed";
 
-    // Show stored result (DO NOT call submitQuiz)
+    // Show stored result
     resultBox.innerHTML = `
         <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
             <h3>Final Score: ${lastAttempt.score} / ${questions.length}</h3>
@@ -331,6 +341,7 @@ function showPreviousAttempt(){
         </div>
     `;
 }
+
    
 </script>
 
