@@ -54,29 +54,18 @@ const subject = params.get("subject");
 const title = document.getElementById("title");
 const content = document.getElementById("content");
 
-if(!subject){
-    title.innerText = "Please Select a Subject";
-    content.innerHTML = `
-        <button onclick="selectSubject('ga')">General Awareness</button>
-        <button onclick="selectSubject('science')">Science</button>
-        <button onclick="selectSubject('social')">Social</button>
-    `;
-}
-
-else if(subject === "ga") {
+if(subject === "ga") {
     title.innerText = "General Awareness - Select Standard";
 
+    // Standards 6–12
     for(let i = 6; i <= 12; i++) {
         content.innerHTML += 
         `<button onclick="openGA(${i})">${i}th Std</button>`;
     }
 
+    // Add Current Affairs Button
     content.innerHTML += 
         `<button onclick="openCurrentAffairs()">Current Affairs</button>`;
-}
-
-function selectSubject(sub){
-    window.location.href = `subjects.html?subject=${sub}`;
 }
 
 function openGA(std) {
@@ -86,6 +75,7 @@ function openGA(std) {
 function openCurrentAffairs() {
     window.location.href = `currentaffairs.html`;
 }
+
 </script>
 
 </body>
