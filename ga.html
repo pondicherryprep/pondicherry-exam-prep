@@ -325,22 +325,35 @@ return `
 
 function handleAction(action, lessonName) {
 
-      if(action === "study") {
+   if(action === "study") {
 
-        window.location.href = 
-        `study.html?std=${std}&lesson=${encodeURIComponent(lessonName)}`;
-
+    if(std == "10" && lessonName === "Outbreak of World War I and Its Aftermath") {
+        window.location.href = "unit1.html";
+    } 
+    else if(std == "10" && lessonName === "The World between Two World Wars") {
+        window.location.href = "unit2.html";
     }
-
-    else if(action === "test") {
-
-        window.location.href = 
-        `test.html?std=${std}&lesson=${encodeURIComponent(lessonName)}`;
-
+    else {
+        alert("Study Material Coming Soon");
     }
 
 }
     
+    else if(action === "test") {
+
+        if(std == "10" && lessonName === "Outbreak of World War I and Its Aftermath") {
+            window.location.href = "unit1-test.html";
+        } 
+        else if(std == "10" && lessonName === "The World between Two World Wars") {
+    window.location.href = "unit2-test.html";
+}      
+        else {
+            alert("Take Test - Coming Soon");
+        }
+
+    }
+
+}
 
 </script>
 </body>
