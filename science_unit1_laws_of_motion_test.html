@@ -1,325 +1,415 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Science Unit 1 Test - Laws of Motion</title>
+<title>Unit 1 Test - Laws of Motion</title>
 <style>
-body{
-    font-family: Arial;
-    background:#f4f6f9;
-    padding:20px;
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
 }
-.container{
-    max-width:900px;
-    margin:auto;
-    background:white;
-    padding:20px;
-    border-radius:10px;
+.question {
+    margin-bottom: 20px;
 }
-h2{text-align:center;}
-.option{margin:8px 0;padding:5px;border-radius:5px;}
-button{padding:8px 15px;margin-top:10px;}
-.correct{background:#c8f7c5;}
-.wrong{background:#f7c5c5;}
-.timer{font-weight:bold;color:red;margin-bottom:10px;}
-.explanation{
-    margin-top:10px;
-    background:#eef2ff;
-    padding:10px;
-    border-radius:6px;
+.timer {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+}
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
 }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-<h2>Unit 1: Laws of Motion - Full Test</h2>
-<div class="timer">Time Left: <span id="time">8</span>s</div>
-<div id="quiz"></div>
-<button onclick="nextQuestion()">Next</button>
-<button onclick="restartQuiz()" style="display:none;" id="retryBtn">Reattempt</button>
-<h3 id="score"></h3>
-</div>
+<h2>UNIT 1 – LAWS OF MOTION</h2>
+<div class="timer">Time Left: <span id="time"></span> seconds</div>
+
+<form id="quizForm"></form>
+
+<button type="button" onclick="submitQuiz()">Submit</button>
+
+<h3 id="result"></h3>
 
 <script>
 
-const quizData = [
+const questions = [
 
 {
-q:"1. Which statement about Inertia is correct?",
-options:[
-"Inertia of rest is resistance to change state of rest",
-"Athlete running before jump shows inertia of direction",
-"Fruits fall due to inertia of motion",
-"All of the above"
+question: `1. Consider the following statements regarding Inertia:<br>
+1. The resistance of a body to change its state of rest is called inertia of rest.<br>
+2. An athlete running some distance before jumping is an example of inertia of direction.<br>
+3. When a branch is shaken, fruits fall down due to inertia of motion.<br>
+Which of the statements given above is/are CORRECT?`,
+options: [
+"1 only",
+"1 and 2 only",
+"2 and 3 only",
+"1, 2 and 3"
 ],
-answer:0,
-exp:"Only statement 1 is correct. Fruits fall due to inertia of rest."
+answer: 0
 },
 
 {
-q:"2. SI unit of Linear Momentum:",
-options:["kg m/s²","kg m/s","Newton-metre","Dyne"],
-answer:1,
-exp:"Momentum = mass × velocity → kg m/s."
+question: `2. Which of the following is the correct SI unit for Linear Momentum?`,
+options: [
+"kg m/s²",
+"kg m/s",
+"Newton-metre",
+"Dyne"
+],
+answer: 1
 },
 
 {
-q:"3. Correct Matching: Impulse, Torque, Couple, Newton II Law",
-options:[
+question: `3. Match the following:<br>
+i. Impulse - a. Turning effect of force<br>
+ii. Torque - b. Product of Force and Time<br>
+iii. Couple - d. Two equal and opposite parallel forces<br>
+iv. Newton's 2nd Law - c. Mass × Acceleration`,
+options: [
 "i-b, ii-a, iii-d, iv-c",
 "i-a, ii-b, iii-c, iv-d",
 "i-b, ii-d, iii-a, iv-c",
 "i-c, ii-a, iii-d, iv-b"
 ],
-answer:0,
-exp:"Impulse=Force×Time, Torque=Turning effect, Couple=Equal opposite forces, F=ma."
+answer: 0
 },
 
 {
-q:"4. g is maximum at poles because:",
-options:[
-"Both A and R true and R explains A",
-"Both true but not explanation",
-"A true R false",
-"Both false"
+question: `4. Assertion (A): The value of acceleration due to gravity (g) is maximum at the poles and minimum at the equator.<br>
+Reason (R): The geometric radius of the Earth is minimum in the polar region and maximum in the equatorial region.`,
+options: [
+"Both A and R are right and R is the correct explanation of A.",
+"Both A and R are right but R is NOT the correct explanation of A.",
+"A is right but R is wrong.",
+"Both A and R are wrong."
 ],
-answer:0,
-exp:"Earth radius is minimum at poles, so g is maximum."
+answer: 0
 },
 
 {
-q:"5. Lift cases correct:",
-options:[
+question: `5. Consider the following cases of a person in a lift:<br>
+1. Lift moving upward → apparent weight is greater.<br>
+2. Lift at rest → apparent weight equals actual weight.<br>
+3. Lift in free fall (a = g) → apparent weight is zero.<br>
+Which are correct?`,
+options: [
 "1 and 2 only",
 "2 and 3 only",
 "1 and 3 only",
-"1,2 and 3"
+"1, 2 and 3"
 ],
-answer:3,
-exp:"All three lift cases are correct."
+answer: 3
 },
 
 {
-q:"6. Rocket propulsion involves:",
-options:[
-"Newton 3rd law only",
-"1 and Conservation of momentum",
-"2 and 3",
+question: `6. Which principles are involved in Rocket Propulsion?`,
+options: [
+"Newton's Third Law only",
+"Newton's Third Law and Conservation of Momentum",
+"Conservation of Momentum and Gravitation",
 "All three"
 ],
-answer:1,
-exp:"Rocket works on Newton's 3rd Law and conservation of momentum."
+answer: 1
 },
 
 {
-q:"7. Inertia depends on:",
-options:["Weight","g","Mass","A and B"],
-answer:2,
-exp:"Inertia depends only on mass."
+question: `7. Inertia of a body depends on:`,
+options: [
+"Weight",
+"Acceleration due to gravity",
+"Mass",
+"Both A and B"
+],
+answer: 2
 },
 
 {
-q:"8. Impulse equals:",
-options:[
+question: `8. Impulse is equal to:`,
+options: [
 "Rate of change of momentum",
 "Rate of force and time",
 "Change of momentum",
 "Rate of change of mass"
 ],
-answer:2,
-exp:"Impulse = Change in momentum."
+answer: 2
 },
 
 {
-q:"9. Unit of g can be written as:",
-options:["cm/s","N/kg","Nm²/kg","cm²/s²"],
-answer:1,
-exp:"From F=mg, g = F/m → N/kg."
-},
-
-{
-q:"10. Rockets require:",
-options:[
-"Newton 3rd law",
-"Gravitation",
-"Conservation of momentum",
-"Both A and C"
+question: `9. The unit of ‘g’ (m s⁻²) can also be expressed as:`,
+options: [
+"cm s⁻¹",
+"N kg⁻¹",
+"Nm² kg⁻¹",
+"cm² s⁻²"
 ],
-answer:3,
-exp:"Both Newton 3rd law and conservation of momentum."
+answer: 1,
+note: "From F = mg → g = F/m = Newton per kg."
 },
 
 {
-q:"11. Correct matching (Newton laws):",
-options:[
+question: `10. To project rockets, which principles are required?`,
+options: [
+"Newton’s Third Law",
+"Newton’s Law of Gravitation",
+"Law of Conservation of Linear Momentum",
+"Both (A) and (C)"
+],
+answer: 3
+},
+
+{
+question: `11. Match the Following:<br>
+i. Newton’s I law - c. Inertia<br>
+ii. Newton’s II law - a. F = ma<br>
+iii. Newton’s III law - d. Flying nature of bird<br>
+iv. Conservation of Momentum - b. Rocket propulsion`,
+options: [
 "i-c, ii-a, iii-d, iv-b",
 "i-a, ii-b, iii-c, iv-d",
 "i-c, ii-d, iii-a, iv-b",
 "i-b, ii-a, iii-d, iv-c"
 ],
-answer:0,
-exp:"Correct matching option A."
+answer: 0
 },
 
 {
-q:"12. g decreases with height & depth:",
-options:[
-"Both true & explanation",
-"Both true but not explanation",
-"A true R false",
-"A false R true"
+question: `12. Assertion: g decreases as height and depth increase.<br>
+Reason: g depends on the mass of the object and the Earth.`,
+options: [
+"Both true and R explains A",
+"Both true but R does not explain A",
+"A true, R false",
+"A false, R true"
 ],
-answer:1,
-exp:"g does not depend on mass of object."
+answer: 1
 },
 
 {
-q:"13. Correct statement about weight:",
-options:[
+question: `13. Correct statement regarding weight:`,
+options: [
 "Weight is scalar",
-"Max at equator",
-"Greater at poles",
-"Constant everywhere"
+"Weight max at equator",
+"Weight greater at poles",
+"Weight constant"
 ],
-answer:2,
-exp:"Weight depends on g, so maximum at poles."
+answer: 2
 },
 
 {
-q:"14. Spanner correct statement:",
-options:[
+question: `14. Regarding a spanner (wrench):`,
+options: [
 "Short handle easier",
 "Long handle reduces torque",
 "Long handle increases perpendicular distance",
-"No effect"
+"Handle length no effect"
 ],
-answer:2,
-exp:"Torque = Force × Distance."
+answer: 2
 },
 
 {
-q:"15. Incorrect about astronauts:",
-options:[
+question: `15. INCORRECT statement about astronauts:`,
+options: [
 "They feel weightless due to free fall",
-"No gravitational force in orbit",
-"Same acceleration",
-"They are falling freely"
+"No gravitational force exists",
+"Station and astronauts have same acceleration",
+"They are falling around Earth"
 ],
-answer:1,
-exp:"Gravity exists in space."
+answer: 1
 },
 
 {
-q:"16. Sign convention:",
-options:[
-"Positive clockwise",
-"Negative clockwise",
-"Always positive",
-"Always negative"
+question: `16. By sign convention, moments are:`,
+options: [
+"Clockwise +, Anticlockwise -",
+"Clockwise -, Anticlockwise +",
+"Both positive",
+"Both negative"
 ],
-answer:1,
-exp:"Clockwise negative, anticlockwise positive."
+answer: 1
 },
 
 {
-q:"17. Weight of 100 kg man (g=9.8):",
-options:["100 N","9.8 N","980 N","1000 N"],
-answer:2,
-exp:"W=mg=100×9.8=980 N."
+question: `17. Weight of 100 kg man (g=9.8)?`,
+options: [
+"100 N",
+"9.8 N",
+"980 N",
+"1000 N"
+],
+answer: 2,
+note: "W = m × g = 100 × 9.8 = 980 N"
 },
 
 {
-q:"18. Torque if 40N at 0.9m:",
-options:["3600 Nm","3.6 Nm","36 Nm","40 Nm"],
-answer:2,
-exp:"Torque=40×0.9=36 Nm."
+question: `18. Torque if 40N applied at 0.9m?`,
+options: [
+"3600 Nm",
+"3.6 Nm",
+"36 Nm",
+"40 Nm"
+],
+answer: 2
 },
 
 {
-q:"19. At what distance g becomes 1/4?",
-options:["R","2R","4R","0.5R"],
-answer:1,
-exp:"g ∝ 1/R². To make 1/4, distance must double."
+question: `19. At what distance from centre will g become 1/4th?`,
+options: [
+"R",
+"2R",
+"4R",
+"0.5R"
+],
+answer: 1,
+note: "Since g ∝ 1/R² → to make g 1/4, distance must be 2R."
 }
 
 ];
 
-let current=0;
-let score=0;
-let timer;
-let timeLeft=15;
+let form = document.getElementById("quizForm");
+let resultBox = document.getElementById("result");
+let timerDisplay = document.getElementById("time");
 
-function loadQuestion(){
-document.getElementById("time").innerText=timeLeft;
-const q=quizData[current];
-let html="<h3>"+q.q+"</h3>";
-q.options.forEach((opt,index)=>{
-html+=`<div class="option">
-<input type="radio" name="option" value="${index}"> ${opt}
-</div>`;
-});
-html+=`<div class="explanation" id="exp" style="display:none;"></div>`;
-document.getElementById("quiz").innerHTML=html;
-startTimer();
+let timerInterval;
+let totalTime = questions.length * 8;
+let timeLeft = totalTime;
+
+window.onload = function() {
+
+    let isTakingTest = sessionStorage.getItem("inProgressScience1");
+    let storedData = localStorage.getItem("science1Result");
+
+    if(isTakingTest === "true"){
+        loadQuestions();
+        timeLeft = totalTime;
+        startTimer();
+    }
+    else if(storedData){
+        showPreviousAttempt();
+    }
+    else{
+        loadQuestions();
+        startTimer();
+    }
+};
+
+function loadQuestions(){
+    form.innerHTML = "";
+    questions.forEach((q, index) => {
+        let div = document.createElement("div");
+        div.classList.add("question");
+        div.innerHTML = `<p>${q.question}</p>`;
+        q.options.forEach((option, i) => {
+            div.innerHTML += `
+            <label>
+                <input type="radio" name="q${index}" value="${i}">
+                ${option}
+            </label><br>`;
+        });
+        form.appendChild(div);
+    });
 }
 
 function startTimer(){
-clearInterval(timer);
-timeLeft=15;
-timer=setInterval(()=>{
-timeLeft--;
-document.getElementById("time").innerText=timeLeft;
-if(timeLeft==0){
-clearInterval(timer);
-checkAnswer();
-}
-},1000);
-}
-
-function checkAnswer(){
-clearInterval(timer);
-const selected=document.querySelector('input[name="option"]:checked');
-const options=document.querySelectorAll('input[name="option"]');
-
-options.forEach((opt,index)=>{
-if(index==quizData[current].answer){
-opt.parentElement.classList.add("correct");
-}
-if(selected && index==selected.value && selected.value!=quizData[current].answer){
-opt.parentElement.classList.add("wrong");
-}
-});
-
-if(selected && selected.value==quizData[current].answer){
-score++;
+    timerDisplay.innerText = timeLeft;
+    timerInterval = setInterval(()=>{
+        timeLeft--;
+        timerDisplay.innerText = timeLeft;
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+    },1000);
 }
 
-document.getElementById("exp").style.display="block";
-document.getElementById("exp").innerHTML="<b>Explanation:</b> "+quizData[current].exp;
+function submitQuiz(){
+
+    sessionStorage.removeItem("inProgressScience1");
+    clearInterval(timerInterval);
+
+    let score = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let notAnsweredCount = 0;
+
+    questions.forEach((q, index) => {
+
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
+        let selectedValue = selected ? parseInt(selected.value) : null;
+
+        let questionDiv = document.getElementsByClassName("question")[index];
+
+        let resultText = document.createElement("div");
+
+        if(selectedValue === null){
+            notAnsweredCount++;
+            resultText.innerHTML = `
+                <p style="color:orange;"><b>Not Answered</b></p>
+                <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>
+                ${q.note ? `<p style="color:blue;"><b>Note:</b> ${q.note}</p>` : ""}
+            `;
+        }
+        else if(selectedValue === q.answer){
+            score += 1;
+            correctCount++;
+            resultText.innerHTML = `
+                <p style="color:green;"><b>✔ Correct (+1)</b></p>
+                ${q.note ? `<p style="color:blue;"><b>Note:</b> ${q.note}</p>` : ""}
+            `;
+        }
+        else{
+            score -= 0.25;
+            wrongCount++;
+            resultText.innerHTML = `
+                <p style="color:red;"><b>✘ Wrong (-0.25)</b></p>
+                <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>
+                ${q.note ? `<p style="color:blue;"><b>Note:</b> ${q.note}</p>` : ""}
+            `;
+        }
+
+        questionDiv.appendChild(resultText);
+    });
+
+    score = score.toFixed(2);
+
+    resultBox.innerHTML = `
+        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
+            <h3>Final Score: ${score} / ${questions.length}</h3>
+            <p>✔ Correct: ${correctCount}</p>
+            <p>✘ Wrong: ${wrongCount}</p>
+            <p>⭕ Not Answered: ${notAnsweredCount}</p>
+            <button onclick="reattempt()">Reattempt Test</button>
+        </div>
+    `;
+
+    localStorage.setItem("science1Result", JSON.stringify({
+        score, correctCount, wrongCount, notAnsweredCount
+    }));
 }
 
-function nextQuestion(){
-if(current<quizData.length-1){
-checkAnswer();
-current++;
-setTimeout(loadQuestion,1500);
-}else{
-checkAnswer();
-document.getElementById("score").innerText="Final Score: "+score+" / "+quizData.length;
-document.getElementById("retryBtn").style.display="inline";
-}
+function reattempt(){
+    sessionStorage.setItem("inProgressScience1", "true");
+    location.reload();
 }
 
-function restartQuiz(){
-current=0;
-score=0;
-document.getElementById("score").innerText="";
-document.getElementById("retryBtn").style.display="none";
-loadQuestion();
-}
+function showPreviousAttempt(){
 
-loadQuestion();
+    let data = JSON.parse(localStorage.getItem("science1Result"));
+    loadQuestions();
+    timerDisplay.innerText = "Completed";
+
+    resultBox.innerHTML = `
+        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
+            <h3>Final Score: ${data.score} / ${questions.length}</h3>
+            <p>✔ Correct: ${data.correctCount}</p>
+            <p>✘ Wrong: ${data.wrongCount}</p>
+            <p>⭕ Not Answered: ${data.notAnsweredCount}</p>
+            <button onclick="reattempt()">Reattempt Test</button>
+        </div>
+    `;
+}
 
 </script>
 </body>
