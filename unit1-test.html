@@ -249,13 +249,13 @@ function submitQuiz(){
 
         if(selectedValue === null){
 
-            notAnsweredCount++;
-            resultText.innerHTML = `
-                <p style="color:orange;"><b>Not Answered</b></p>
-                <p>Correct Answer: ${q.options[q.answer]}</p>
-            `;
+    notAnsweredCount++;
 
-        }
+    resultText.innerHTML = `
+        <p style="color:orange;"><b>Not Answered</b></p>
+        <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>
+    `;
+}
         else if(selectedValue === q.answer){
 
             score += 1;
