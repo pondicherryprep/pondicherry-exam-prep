@@ -325,21 +325,29 @@ return `
 
 function handleAction(action, lessonName) {
 
-    if(action === "study") {
+   if(action === "study") {
 
-        if(std == "10" && lessonName === "Outbreak of World War I and Its Aftermath") {
-            window.location.href = "unit1.html";
-        } else {
-            alert("Study Material Coming Soon");
-        }
-
+    if(std == "10" && lessonName === "Outbreak of World War I and Its Aftermath") {
+        window.location.href = "unit1.html";
     } 
+    else if(std == "10" && lessonName === "The World between Two World Wars") {
+        window.location.href = "unit2.html";
+    }
+    else {
+        alert("Study Material Coming Soon");
+    }
+
+}
     
     else if(action === "test") {
 
         if(std == "10" && lessonName === "Outbreak of World War I and Its Aftermath") {
             window.location.href = "unit1-test.html";
-        } else {
+        } 
+        else if(std == "10" && lessonName === "The World between Two World Wars") {
+    window.location.href = "unit2-test.html";
+}      
+        else {
             alert("Take Test - Coming Soon");
         }
 
