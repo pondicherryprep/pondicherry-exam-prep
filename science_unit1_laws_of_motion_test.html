@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Science Unit 1 Test - Laws of Motion</title>
+<style>
+body{
+    font-family: Arial;
+    background:#f4f6f9;
+    padding:20px;
+}
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+h2{text-align:center;}
+.option{margin:8px 0;padding:5px;border-radius:5px;}
+button{padding:8px 15px;margin-top:10px;}
+.correct{background:#c8f7c5;}
+.wrong{background:#f7c5c5;}
+.timer{font-weight:bold;color:red;margin-bottom:10px;}
+.explanation{
+    margin-top:10px;
+    background:#eef2ff;
+    padding:10px;
+    border-radius:6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Unit 1: Laws of Motion - Full Test</h2>
+<div class="timer">Time Left: <span id="time">8</span>s</div>
+<div id="quiz"></div>
+<button onclick="nextQuestion()">Next</button>
+<button onclick="restartQuiz()" style="display:none;" id="retryBtn">Reattempt</button>
+<h3 id="score"></h3>
+</div>
+
+<script>
+
+const quizData = [
+
+{
+q:"1. Which statement about Inertia is correct?",
+options:[
+"Inertia of rest is resistance to change state of rest",
+"Athlete running before jump shows inertia of direction",
+"Fruits fall due to inertia of motion",
+"All of the above"
+],
+answer:0,
+exp:"Only statement 1 is correct. Fruits fall due to inertia of rest."
+},
+
+{
+q:"2. SI unit of Linear Momentum:",
+options:["kg m/s²","kg m/s","Newton-metre","Dyne"],
+answer:1,
+exp:"Momentum = mass × velocity → kg m/s."
+},
+
+{
+q:"3. Correct Matching: Impulse, Torque, Couple, Newton II Law",
+options:[
+"i-b, ii-a, iii-d, iv-c",
+"i-a, ii-b, iii-c, iv-d",
+"i-b, ii-d, iii-a, iv-c",
+"i-c, ii-a, iii-d, iv-b"
+],
+answer:0,
+exp:"Impulse=Force×Time, Torque=Turning effect, Couple=Equal opposite forces, F=ma."
+},
+
+{
+q:"4. g is maximum at poles because:",
+options:[
+"Both A and R true and R explains A",
+"Both true but not explanation",
+"A true R false",
+"Both false"
+],
+answer:0,
+exp:"Earth radius is minimum at poles, so g is maximum."
+},
+
+{
+q:"5. Lift cases correct:",
+options:[
+"1 and 2 only",
+"2 and 3 only",
+"1 and 3 only",
+"1,2 and 3"
+],
+answer:3,
+exp:"All three lift cases are correct."
+},
+
+{
+q:"6. Rocket propulsion involves:",
+options:[
+"Newton 3rd law only",
+"1 and Conservation of momentum",
+"2 and 3",
+"All three"
+],
+answer:1,
+exp:"Rocket works on Newton's 3rd Law and conservation of momentum."
+},
+
+{
+q:"7. Inertia depends on:",
+options:["Weight","g","Mass","A and B"],
+answer:2,
+exp:"Inertia depends only on mass."
+},
+
+{
+q:"8. Impulse equals:",
+options:[
+"Rate of change of momentum",
+"Rate of force and time",
+"Change of momentum",
+"Rate of change of mass"
+],
+answer:2,
+exp:"Impulse = Change in momentum."
+},
+
+{
+q:"9. Unit of g can be written as:",
+options:["cm/s","N/kg","Nm²/kg","cm²/s²"],
+answer:1,
+exp:"From F=mg, g = F/m → N/kg."
+},
+
+{
+q:"10. Rockets require:",
+options:[
+"Newton 3rd law",
+"Gravitation",
+"Conservation of momentum",
+"Both A and C"
+],
+answer:3,
+exp:"Both Newton 3rd law and conservation of momentum."
+},
+
+{
+q:"11. Correct matching (Newton laws):",
+options:[
+"i-c, ii-a, iii-d, iv-b",
+"i-a, ii-b, iii-c, iv-d",
+"i-c, ii-d, iii-a, iv-b",
+"i-b, ii-a, iii-d, iv-c"
+],
+answer:0,
+exp:"Correct matching option A."
+},
+
+{
+q:"12. g decreases with height & depth:",
+options:[
+"Both true & explanation",
+"Both true but not explanation",
+"A true R false",
+"A false R true"
+],
+answer:1,
+exp:"g does not depend on mass of object."
+},
+
+{
+q:"13. Correct statement about weight:",
+options:[
+"Weight is scalar",
+"Max at equator",
+"Greater at poles",
+"Constant everywhere"
+],
+answer:2,
+exp:"Weight depends on g, so maximum at poles."
+},
+
+{
+q:"14. Spanner correct statement:",
+options:[
+"Short handle easier",
+"Long handle reduces torque",
+"Long handle increases perpendicular distance",
+"No effect"
+],
+answer:2,
+exp:"Torque = Force × Distance."
+},
+
+{
+q:"15. Incorrect about astronauts:",
+options:[
+"They feel weightless due to free fall",
+"No gravitational force in orbit",
+"Same acceleration",
+"They are falling freely"
+],
+answer:1,
+exp:"Gravity exists in space."
+},
+
+{
+q:"16. Sign convention:",
+options:[
+"Positive clockwise",
+"Negative clockwise",
+"Always positive",
+"Always negative"
+],
+answer:1,
+exp:"Clockwise negative, anticlockwise positive."
+},
+
+{
+q:"17. Weight of 100 kg man (g=9.8):",
+options:["100 N","9.8 N","980 N","1000 N"],
+answer:2,
+exp:"W=mg=100×9.8=980 N."
+},
+
+{
+q:"18. Torque if 40N at 0.9m:",
+options:["3600 Nm","3.6 Nm","36 Nm","40 Nm"],
+answer:2,
+exp:"Torque=40×0.9=36 Nm."
+},
+
+{
+q:"19. At what distance g becomes 1/4?",
+options:["R","2R","4R","0.5R"],
+answer:1,
+exp:"g ∝ 1/R². To make 1/4, distance must double."
+}
+
+];
+
+let current=0;
+let score=0;
+let timer;
+let timeLeft=15;
+
+function loadQuestion(){
+document.getElementById("time").innerText=timeLeft;
+const q=quizData[current];
+let html="<h3>"+q.q+"</h3>";
+q.options.forEach((opt,index)=>{
+html+=`<div class="option">
+<input type="radio" name="option" value="${index}"> ${opt}
+</div>`;
+});
+html+=`<div class="explanation" id="exp" style="display:none;"></div>`;
+document.getElementById("quiz").innerHTML=html;
+startTimer();
+}
+
+function startTimer(){
+clearInterval(timer);
+timeLeft=15;
+timer=setInterval(()=>{
+timeLeft--;
+document.getElementById("time").innerText=timeLeft;
+if(timeLeft==0){
+clearInterval(timer);
+checkAnswer();
+}
+},1000);
+}
+
+function checkAnswer(){
+clearInterval(timer);
+const selected=document.querySelector('input[name="option"]:checked');
+const options=document.querySelectorAll('input[name="option"]');
+
+options.forEach((opt,index)=>{
+if(index==quizData[current].answer){
+opt.parentElement.classList.add("correct");
+}
+if(selected && index==selected.value && selected.value!=quizData[current].answer){
+opt.parentElement.classList.add("wrong");
+}
+});
+
+if(selected && selected.value==quizData[current].answer){
+score++;
+}
+
+document.getElementById("exp").style.display="block";
+document.getElementById("exp").innerHTML="<b>Explanation:</b> "+quizData[current].exp;
+}
+
+function nextQuestion(){
+if(current<quizData.length-1){
+checkAnswer();
+current++;
+setTimeout(loadQuestion,1500);
+}else{
+checkAnswer();
+document.getElementById("score").innerText="Final Score: "+score+" / "+quizData.length;
+document.getElementById("retryBtn").style.display="inline";
+}
+}
+
+function restartQuiz(){
+current=0;
+score=0;
+document.getElementById("score").innerText="";
+document.getElementById("retryBtn").style.display="none";
+loadQuestion();
+}
+
+loadQuestion();
+
+</script>
+</body>
+</html>
