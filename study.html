@@ -32,7 +32,32 @@ h2 {
 
 <div class="container">
 
-<h2>UNIT 1 – OUTBREAK OF WORLD WAR I & AFTERMATH</h2>
+<h2 id="title"></h2>
+
+<div id="content"></div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const std = params.get("std");
+const lesson = params.get("lesson");
+
+const title = document.getElementById("title");
+const content = document.getElementById("content");
+
+title.innerText = lesson;
+
+/* ===============================
+   PROFESSIONAL STUDY DATABASE
+=================================*/
+
+const studyData = {
+
+"10": {
+
+"Outbreak of World War I and Its Aftermath": `
 
 <div class="box">
 <p><b>1914</b> → Beginning of First World War</p>
@@ -53,99 +78,72 @@ h2 {
 <li>Imperialism</li>
 <li>Nationalism</li>
 </ul>
-
 <p><b>Triple Alliance (1882):</b> Germany, Austria–Hungary, Italy</p>
 <p><b>Triple Entente (1907):</b> Britain, France, Russia</p>
 </div>
 
 <div class="box">
-<p><b>Nationalism Terms</b></p>
-<ul>
-<li>England → Jingoism</li>
-<li>France → Chauvinism</li>
-<li>Germany → Kultur</li>
-</ul>
-</div>
-
-<div class="box">
 <p><b>Immediate Cause</b></p>
 <p>28 June 1914 – Assassination of Archduke Franz Ferdinand at Sarajevo</p>
-<p>Assassin → Princip (Bosnian Serb)</p>
 </div>
 
+`,
+
+"The World between Two World Wars": `
+
 <div class="box">
-<p><b>Course of the War</b></p>
+<p><b>Treaty of Versailles Impact</b></p>
 <ul>
-<li>Central Powers: Germany, Austria–Hungary, Turkey, Bulgaria</li>
-<li>Allies: Britain, France, Russia, Italy, USA, Belgium, Serbia, Romania, Greece</li>
+<li>Germany lost territory</li>
+<li>Heavy war compensation</li>
+<li>Military restrictions imposed</li>
 </ul>
 </div>
 
 <div class="box">
-<p><b>Important Battles</b></p>
+<p><b>Rise of Dictators</b></p>
 <ul>
-<li>Tannenberg → Russia defeated</li>
-<li>Marne → Trench warfare</li>
-<li>Verdun → 5 months battle</li>
-<li>Somme → Heavy British loss</li>
-<li>Jutland → Naval battle</li>
-<li>Lusitania sunk → USA entered war (1917)</li>
+<li>Hitler – Germany</li>
+<li>Mussolini – Italy</li>
+<li>Stalin – USSR</li>
 </ul>
 </div>
 
 <div class="box">
-<p><b>Treaty of Versailles</b> (28 June 1919)</p>
+<p><b>Great Depression (1929)</b></p>
 <ul>
-<li>Ended WWI</li>
-<li>Germany punished</li>
-<li>League of Nations created</li>
+<li>Stock market crash in USA</li>
+<li>Global unemployment</li>
+<li>Economic instability worldwide</li>
 </ul>
 </div>
 
+`
+
+}
+
+};
+
+/* ===============================
+   CONTENT LOADER
+=================================*/
+
+if(studyData[std] && studyData[std][lesson]) {
+
+content.innerHTML = studyData[std][lesson];
+
+} else {
+
+content.innerHTML = `
 <div class="box">
-<p><b>Russian Revolution (1917)</b></p>
-<ul>
-<li>March Revolution → Tsar Nicholas II abdicated</li>
-<li>November Revolution → Lenin seized power</li>
-<li>Treaty → Brest-Litovsk (1918)</li>
-</ul>
+<p>Study Material Coming Soon...</p>
 </div>
+`;
 
-<div class="box">
-<p><b>League of Nations (1920)</b></p>
-<ul>
-<li>HQ: Geneva</li>
-<li>First Secretary-General: Sir Eric Drummond (Britain)</li>
-<li>Members: Assembly, Council, Secretariat, Permanent Court of Justice, ILO</li>
-</ul>
-</div>
+}
 
-<div class="box">
-<p><b>Failures</b></p>
-<ul>
-<li>No army</li>
-<li>USA not member</li>
-<li>Germany resigned (1933)</li>
-<li>Japan resigned (1933)</li>
-<li>Italy resigned (1937)</li>
-<li>Russia expelled (1939)</li>
-<li>Dissolved in 1946</li>
-</ul>
-</div>
-
-<div class="box">
-<p><b>Important Facts</b></p>
-<ul>
-<li>ICJ → International Court of Justice (The Hague)</li>
-<li>Lusitania → American ship</li>
-<li>Rhineland → Demilitarised</li>
-<li>Meiji Era → 1867–1912</li>
-<li>Treaty with Turkey → Sevres</li>
-<li>Pravda → Official Soviet newspaper (Truth)</li>
-</ul>
-</div>
-
-</div>
+</script>
 
 </body>
+
 </html>
