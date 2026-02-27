@@ -32,45 +32,7 @@ h2 {
 
 <div class="container">
 
-<h2 id="title"></h2>
-
-<iframe id="lessonFrame"
-        style="width:100%; height:1200px; border:none;">
-</iframe>
-
-</div>
-
-<script>
-
-const params = new URLSearchParams(window.location.search);
-const lesson = params.get("lesson");
-
-document.getElementById("title").innerText = lesson;
-
-const iframe = document.getElementById("lessonFrame");
-
-if(lesson === "Outbreak of World War I and Its Aftermath") {
-    iframe.src = "unit1.html";
-}
-else if(lesson === "The World between Two World Wars") {
-    iframe.src = "unit2.html";
-}
-
-</script>
-
-
-</body>
-
-
-/* ===============================
-   PROFESSIONAL STUDY DATABASE
-=================================*/
-
-const studyData = {
-
-"10": {
-
-"Outbreak of World War I and Its Aftermath": `
+<h2>UNIT 1 – OUTBREAK OF WORLD WAR I & AFTERMATH</h2>
 
 <div class="box">
 <p><b>1914</b> → Beginning of First World War</p>
@@ -91,6 +53,7 @@ const studyData = {
 <li>Imperialism</li>
 <li>Nationalism</li>
 </ul>
+
 <p><b>Triple Alliance (1882):</b> Germany, Austria–Hungary, Italy</p>
 <p><b>Triple Entente (1907):</b> Britain, France, Russia</p>
 </div>
@@ -182,66 +145,7 @@ const studyData = {
 </ul>
 </div>
 
-`,
-
-"The World between Two World Wars": `
-
-<div class="box">
-<p><b>Treaty of Versailles Consequences</b></p>
-<ul>
-<li>Germany forced to accept War Guilt Clause</li>
-<li>Heavy reparations imposed</li>
-<li>Loss of territories</li>
-<li>Military severely restricted</li>
-</ul>
 </div>
-
-<div class="box">
-<p><b>Rise of Dictators</b></p>
-<ul>
-<li>Adolf Hitler – Germany</li>
-<li>Benito Mussolini – Italy</li>
-<li>Joseph Stalin – USSR</li>
-</ul>
-</div>
-
-<div class="box">
-<p><b>Great Depression (1929)</b></p>
-<ul>
-<li>Wall Street Crash – USA</li>
-<li>Banks collapsed</li>
-<li>Mass unemployment worldwide</li>
-<li>Political instability increased</li>
-</ul>
-</div>
-
-`
-
-}
-
-};
-
-
-/* ===============================
-   CONTENT LOADER
-=================================*/
-
-if(studyData[std] && studyData[std][lesson]) {
-
-content.innerHTML = studyData[std][lesson];
-
-} else {
-
-content.innerHTML = `
-<div class="box">
-<p>Study Material Coming Soon...</p>
-</div>
-`;
-
-}
-
-</script>
 
 </body>
-
 </html>
