@@ -34,20 +34,33 @@ h2 {
 
 <h2 id="title"></h2>
 
-<div id="content"></div>
+<iframe id="lessonFrame"
+        style="width:100%; height:1200px; border:none;">
+</iframe>
 
 </div>
 
 <script>
 
 const params = new URLSearchParams(window.location.search);
-const std = params.get("std");
 const lesson = params.get("lesson");
 
-const title = document.getElementById("title");
-const content = document.getElementById("content");
+document.getElementById("title").innerText = lesson;
 
-title.innerText = lesson;
+if(lesson === "Outbreak of World War I and Its Aftermath") {
+    document.getElementById("lessonFrame").src = "unit1.html";
+}
+else if(lesson === "The World between Two World Wars") {
+    document.getElementById("lessonFrame").src = "unit2.html";
+}
+else {
+    document.getElementById("lessonFrame").src = "";
+}
+
+</script>
+
+</body>
+
 
 /* ===============================
    PROFESSIONAL STUDY DATABASE
