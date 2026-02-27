@@ -47,18 +47,17 @@ const lesson = params.get("lesson");
 
 document.getElementById("title").innerText = lesson;
 
+const iframe = document.getElementById("lessonFrame");
+
 if(lesson === "Outbreak of World War I and Its Aftermath") {
-    document.getElementById("lessonFrame").src = "unit1.html";
+    iframe.src = "unit1.html";
 }
 else if(lesson === "The World between Two World Wars") {
-    iframe.src = "unit2.html";   // ✅ must be unit2.html
-}
-
-else {
-    document.getElementById("lessonFrame").src = "";
+    iframe.src = "unit2.html";
 }
 
 </script>
+
 
 </body>
 
