@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UNIT 2 – THE WORLD BETWEEN TWO WORLD WARS – Test</title>
+
+<style>
+body {
+    font-family: Arial;
+    padding: 30px;
+    max-width: 900px;
+    margin: auto;
+    line-height: 1.6;
+}
+
+h2 {
+    text-align: center;
+}
+
+.question {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f4f6f9;
+    border-left: 4px solid #007bff;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e9ffe9;
+    border-left: 4px solid green;
+}
+
+.note {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff4e5;
+    border-left: 4px solid orange;
+}
+</style>
+
+</head>
+<body>
+
+<h2>UNIT 2 – THE WORLD BETWEEN TWO WORLD WARS</h2>
+
+<form id="quizForm">
+
+<div class="question">
+<p>1. On which date did the "Great Crash" occur?</p>
+<input type="radio" name="q1" value="A"> October 15, 1929<br>
+<input type="radio" name="q1" value="B"> October 24, 1929<br>
+<input type="radio" name="q1" value="C"> November 11, 1918<br>
+<input type="radio" name="q1" value="D"> January 26, 1930<br>
+</div>
+
+<div class="question">
+<p>2. Mussolini founded the Fascist Party in 1919 and led March on Rome in 1922.</p>
+<input type="radio" name="q2" value="A"> Correct<br>
+<input type="radio" name="q2" value="B"> Incorrect<br>
+</div>
+
+<div class="question">
+<p>3. Gestapo was secret police under:</p>
+<input type="radio" name="q3" value="A"> Goebbels<br>
+<input type="radio" name="q3" value="B"> Himmler<br>
+<input type="radio" name="q3" value="C"> Hitler<br>
+<input type="radio" name="q3" value="D"> Roosevelt<br>
+</div>
+
+<div class="question">
+<p>4. Provincial Autonomy was introduced under:</p>
+<input type="radio" name="q4" value="A"> 1909 Act<br>
+<input type="radio" name="q4" value="B"> 1919 Act<br>
+<input type="radio" name="q4" value="C"> 1935 Act<br>
+<input type="radio" name="q4" value="D"> 1947 Act<br>
+</div>
+
+<div class="question">
+<p>5. "El Liberator" refers to:</p>
+<input type="radio" name="q5" value="A"> Mandela<br>
+<input type="radio" name="q5" value="B"> Ho Chi Minh<br>
+<input type="radio" name="q5" value="C"> Simon Bolivar<br>
+<input type="radio" name="q5" value="D"> Cortes<br>
+</div>
+
+<button type="button" onclick="submitQuiz()">Submit Test</button>
+
+</form>
+
+<div id="result"></div>
+<div id="revisionNote"></div>
+
+<script>
+
+function submitQuiz() {
+
+let answers = {
+    q1: "B",
+    q2: "A",
+    q3: "B",
+    q4: "C",
+    q5: "C"
+};
+
+let score = 0;
+let total = Object.keys(answers).length;
+
+for(let key in answers) {
+    let selected = document.querySelector('input[name="' + key + '"]:checked');
+    if(selected && selected.value === answers[key]) {
+        score++;
+    }
+}
+
+document.getElementById("result").innerHTML = 
+'<div class="result"><h3>Your Score: ' + score + ' / ' + total + '</h3></div>';
+
+document.getElementById("revisionNote").innerHTML = `
+<div class="note">
+<h3>Note for Revision:</h3>
+<p>• 'Il Duce' means 'The Leader'.</p>
+<p>• Mayas – Central America, Incas – Peru, Aztecs – Mexico.</p>
+<p>• Cortes – Mexico (Aztecs), Pizarro – Peru (Incas).</p>
+<p>• Good Neighbour Policy – Franklin D. Roosevelt.</p>
+<p>• Lateran Treaty (1929) recognized Vatican City.</p>
+</div>
+`;
+
+}
+
+</script>
+
+</body>
+</html>
