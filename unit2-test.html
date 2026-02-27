@@ -1,137 +1,348 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>UNIT 2 – THE WORLD BETWEEN TWO WORLD WARS – Test</title>
-
+<title>Unit 2 Test - The World Between Two World Wars</title>
 <style>
 body {
-    font-family: Arial;
-    padding: 30px;
-    max-width: 900px;
-    margin: auto;
-    line-height: 1.6;
+    font-family: Arial, sans-serif;
+    padding: 20px;
 }
-
-h2 {
-    text-align: center;
-}
-
 .question {
     margin-bottom: 20px;
-    padding: 15px;
-    background: #f4f6f9;
-    border-left: 4px solid #007bff;
 }
-
+.timer {
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+}
 button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.result {
-    margin-top: 20px;
-    padding: 15px;
-    background: #e9ffe9;
-    border-left: 4px solid green;
-}
-
-.note {
-    margin-top: 20px;
-    padding: 15px;
-    background: #fff4e5;
-    border-left: 4px solid orange;
+    padding: 10px 15px;
+    margin-top: 10px;
 }
 </style>
-
 </head>
 <body>
 
 <h2>UNIT 2 – THE WORLD BETWEEN TWO WORLD WARS</h2>
+<div class="timer">Time Left: <span id="time"></span> seconds</div>
 
-<form id="quizForm">
+<form id="quizForm"></form>
 
-<div class="question">
-<p>1. On which date did the "Great Crash" occur?</p>
-<input type="radio" name="q1" value="A"> October 15, 1929<br>
-<input type="radio" name="q1" value="B"> October 24, 1929<br>
-<input type="radio" name="q1" value="C"> November 11, 1918<br>
-<input type="radio" name="q1" value="D"> January 26, 1930<br>
-</div>
+<button type="button" onclick="submitQuiz()">Submit</button>
 
-<div class="question">
-<p>2. Mussolini founded the Fascist Party in 1919 and led March on Rome in 1922.</p>
-<input type="radio" name="q2" value="A"> Correct<br>
-<input type="radio" name="q2" value="B"> Incorrect<br>
-</div>
-
-<div class="question">
-<p>3. Gestapo was secret police under:</p>
-<input type="radio" name="q3" value="A"> Goebbels<br>
-<input type="radio" name="q3" value="B"> Himmler<br>
-<input type="radio" name="q3" value="C"> Hitler<br>
-<input type="radio" name="q3" value="D"> Roosevelt<br>
-</div>
-
-<div class="question">
-<p>4. Provincial Autonomy was introduced under:</p>
-<input type="radio" name="q4" value="A"> 1909 Act<br>
-<input type="radio" name="q4" value="B"> 1919 Act<br>
-<input type="radio" name="q4" value="C"> 1935 Act<br>
-<input type="radio" name="q4" value="D"> 1947 Act<br>
-</div>
-
-<div class="question">
-<p>5. "El Liberator" refers to:</p>
-<input type="radio" name="q5" value="A"> Mandela<br>
-<input type="radio" name="q5" value="B"> Ho Chi Minh<br>
-<input type="radio" name="q5" value="C"> Simon Bolivar<br>
-<input type="radio" name="q5" value="D"> Cortes<br>
-</div>
-
-<button type="button" onclick="submitQuiz()">Submit Test</button>
-
-</form>
-
-<div id="result"></div>
-<div id="revisionNote"></div>
+<h3 id="result"></h3>
 
 <script>
 
-function submitQuiz() {
+const questions = [
 
-let answers = {
-    q1: "B",
-    q2: "A",
-    q3: "B",
-    q4: "C",
-    q5: "C"
-};
+{
+question: "The Great Crash occurred in:",
+options: ["1925", "1929", "1933", "1919"],
+answer: 1,
+note: "The Great Crash (Wall Street Crash) happened in October 1929."
+},
 
-let score = 0;
-let total = Object.keys(answers).length;
+{
+question: "The economic crisis of 1929 began in:",
+options: ["Britain", "Germany", "USA", "France"],
+answer: 2,
+note: "It began in the United States and spread worldwide."
+},
 
-for(let key in answers) {
-    let selected = document.querySelector('input[name="' + key + '"]:checked');
-    if(selected && selected.value === answers[key]) {
-        score++;
-    }
+{
+question: "The New Deal was introduced by:",
+options: ["Hoover", "Roosevelt", "Wilson", "Truman"],
+answer: 1,
+note: "Franklin D. Roosevelt introduced the New Deal."
+},
+
+{
+question: "Nazism developed in:",
+options: ["Italy", "Germany", "Russia", "Spain"],
+answer: 1,
+note: "Nazism was led by Adolf Hitler in Germany."
+},
+
+{
+question: "Fascism was founded by:",
+options: ["Hitler", "Mussolini", "Stalin", "Lenin"],
+answer: 1,
+note: "Benito Mussolini founded Fascism in Italy."
+},
+
+{
+question: "Hitler became Chancellor in:",
+options: ["1929", "1930", "1933", "1935"],
+answer: 2,
+note: "Hitler became Chancellor of Germany in 1933."
+},
+
+{
+question: "League of Nations failed because:",
+options: ["Weak military power", "Strong leadership", "Too many members", "No meetings"],
+answer: 0,
+note: "The League had no military force to enforce decisions."
+},
+
+{
+question: "The policy of appeasement was followed by:",
+options: ["USA", "Britain and France", "Germany", "Russia"],
+answer: 1,
+note: "Britain and France followed appeasement to avoid war."
+},
+
+{
+question: "Spanish Civil War started in:",
+options: ["1936", "1939", "1929", "1918"],
+answer: 0,
+note: "The Spanish Civil War began in 1936."
+},
+
+{
+question: "Axis Powers included:",
+options: ["Germany, Italy, Japan", "USA, Britain, France", "Russia, Germany, Italy", "France, Japan, Italy"],
+answer: 0,
+note: "Axis Powers were Germany, Italy, and Japan."
+},
+
+{
+question: "Mein Kampf was written by:",
+options: ["Mussolini", "Hitler", "Stalin", "Lenin"],
+answer: 1,
+note: "Mein Kampf was written by Adolf Hitler."
+},
+
+{
+question: "The Rome-Berlin Axis was formed in:",
+options: ["1936", "1929", "1933", "1940"],
+answer: 0,
+note: "Germany and Italy formed the Rome-Berlin Axis in 1936."
+},
+
+{
+question: "Japan invaded Manchuria in:",
+options: ["1931", "1936", "1925", "1940"],
+answer: 0,
+note: "Japan invaded Manchuria in 1931."
+},
+
+{
+question: "The Great Depression affected:",
+options: ["Only USA", "Only Europe", "Whole world", "Only Asia"],
+answer: 2,
+note: "The Great Depression affected economies worldwide."
+},
+
+{
+question: "Totalitarian state means:",
+options: ["People rule", "King rule", "One party controls everything", "Military rule"],
+answer: 2,
+note: "In a totalitarian state, one party controls all aspects of life."
+},
+
+{
+question: "The Munich Agreement was signed in:",
+options: ["1938", "1936", "1929", "1933"],
+answer: 0,
+note: "Munich Agreement was signed in 1938."
+},
+
+{
+question: "Nazis believed in:",
+options: ["Democracy", "Equality", "Racial superiority", "Socialism"],
+answer: 2,
+note: "Nazis believed in Aryan racial superiority."
+},
+
+{
+question: "The Treaty of Versailles blamed ______ for WWI.",
+options: ["France", "Russia", "Germany", "Italy"],
+answer: 2,
+note: "Germany was blamed for World War I."
+},
+
+{
+question: "The immediate cause of WWII was:",
+options: ["Great Depression", "German invasion of Poland", "League failure", "Spanish War"],
+answer: 1,
+note: "Germany invaded Poland in 1939, starting WWII."
+},
+
+{
+question: "Second World War began in:",
+options: ["1936", "1938", "1939", "1941"],
+answer: 2,
+note: "World War II began in 1939."
 }
 
-document.getElementById("result").innerHTML = 
-'<div class="result"><h3>Your Score: ' + score + ' / ' + total + '</h3></div>';
+];
 
-document.getElementById("revisionNote").innerHTML = `
-<div class="note">
-<h3>Note for Revision:</h3>
-<p>• 'Il Duce' means 'The Leader'.</p>
-<p>• Mayas – Central America, Incas – Peru, Aztecs – Mexico.</p>
-<p>• Cortes – Mexico (Aztecs), Pizarro – Peru (Incas).</p>
-<p>• Good Neighbour Policy – Franklin D. Roosevelt.</p>
-<p>• Lateran Treaty (1929) recognized Vatican City.</p>
-</div>
-`;
+// ===== ELEMENTS =====
+let form = document.getElementById("quizForm");
+let resultBox = document.getElementById("result");
+let timerDisplay = document.getElementById("time");
 
+let timerInterval;
+let totalTime = questions.length * 8;   // 8 seconds per question
+let timeLeft = totalTime;
+
+
+// ===== PAGE LOAD =====
+window.onload = function() {
+
+    let isTakingTest = sessionStorage.getItem("inProgress2");
+    let storedData = localStorage.getItem("unit2Result");
+
+    if(isTakingTest === "true"){
+        loadQuestions();
+        timeLeft = totalTime;
+        startTimer();
+    }
+    else if(storedData){
+        showPreviousAttempt();
+    }
+    else{
+        loadQuestions();
+        startTimer();
+    }
+};
+
+// ===== LOAD QUESTIONS =====
+function loadQuestions(){
+    form.innerHTML = "";
+
+    questions.forEach((q, index) => {
+        let div = document.createElement("div");
+        div.classList.add("question");
+
+        div.innerHTML = `<p>${index+1}. ${q.question}</p>`;
+
+        q.options.forEach((option, i) => {
+            div.innerHTML += `
+            <label>
+                <input type="radio" name="q${index}" value="${i}">
+                ${option}
+            </label><br>`;
+        });
+
+        form.appendChild(div);
+    });
+}
+
+// ===== TIMER =====
+function startTimer(){
+
+    timerDisplay.innerText = timeLeft;
+
+    timerInterval = setInterval(()=>{
+        timeLeft--;
+        timerDisplay.innerText = timeLeft;
+
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+
+    },1000);
+}
+
+// ===== SUBMIT QUIZ =====
+function submitQuiz(){
+
+    sessionStorage.removeItem("inProgress2");
+    clearInterval(timerInterval);
+
+    let score = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let notAnsweredCount = 0;
+
+    questions.forEach((q, index) => {
+
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
+        let selectedValue = selected ? parseInt(selected.value) : null;
+
+        let questionDiv = document.getElementsByClassName("question")[index];
+
+        let resultText = document.createElement("div");
+
+        if(selectedValue === null){
+
+            notAnsweredCount++;
+
+            resultText.innerHTML = `
+                <p style="color:orange;"><b>Not Answered</b></p>
+                <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>
+                <p style="color:blue;"><b>Note for Revision:</b> ${q.note}</p>
+            `;
+        }
+        else if(selectedValue === q.answer){
+
+            score += 1;
+            correctCount++;
+
+            resultText.innerHTML = `
+                <p style="color:green;"><b>✔ Correct (+1)</b></p>
+                <p style="color:blue;"><b>Note for Revision:</b> ${q.note}</p>
+            `;
+        }
+        else{
+
+            score -= 0.25;
+            wrongCount++;
+
+            resultText.innerHTML = `
+                <p style="color:red;"><b>✘ Wrong (-0.25)</b></p>
+                <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>
+                <p style="color:blue;"><b>Note for Revision:</b> ${q.note}</p>
+            `;
+        }
+
+        questionDiv.appendChild(resultText);
+    });
+
+    score = score.toFixed(2);
+
+    resultBox.innerHTML = `
+        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
+            <h3>Final Score: ${score} / ${questions.length}</h3>
+            <p>✔ Correct: ${correctCount}</p>
+            <p>✘ Wrong: ${wrongCount}</p>
+            <p>⭕ Not Answered: ${notAnsweredCount}</p>
+            <button onclick="reattempt()">Reattempt Test</button>
+        </div>
+    `;
+
+    localStorage.setItem("unit2Result", JSON.stringify({
+        score, correctCount, wrongCount, notAnsweredCount
+    }));
+}
+
+// ===== REATTEMPT =====
+function reattempt(){
+    sessionStorage.setItem("inProgress2", "true");
+    location.reload();
+}
+
+// ===== SHOW PREVIOUS ATTEMPT =====
+function showPreviousAttempt(){
+
+    let data = JSON.parse(localStorage.getItem("unit2Result"));
+
+    loadQuestions();
+
+    timerDisplay.innerText = "Completed";
+
+    resultBox.innerHTML = `
+        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
+            <h3>Previous Score: ${data.score} / ${questions.length}</h3>
+            <p>✔ Correct: ${data.correctCount}</p>
+            <p>✘ Wrong: ${data.wrongCount}</p>
+            <p>⭕ Not Answered: ${data.notAnsweredCount}</p>
+            <button onclick="reattempt()">Reattempt Test</button>
+        </div>
+    `;
 }
 
 </script>
