@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Affairs</title>
+</head>
+
+<body>
+
+<h2 id="title"></h2>   <!-- ADD HERE -->
+<div id="content"></div>  <!-- ADD HERE -->
+
+<script>
+
+let content = document.getElementById("content");
+let title = document.getElementById("title");
+
+title.innerText = "Current Affairs - Select Month";
+
+// 2025 Months
+let months = ["Jan","Feb","Mar","Apr","May","Jun",
+              "Jul","Aug","Sep","Oct","Nov","Dec"];
+
+months.forEach(month => {
+    content.innerHTML += 
+    `<button onclick="openMonth('${month}-2025')">${month} 2025</button>`;
+});
+
+// 2026 Months
+["Jan","Feb"].forEach(month => {
+    content.innerHTML += 
+    `<button onclick="openMonth('${month}-2026')">${month} 2026</button>`;
+});
+
+function openMonth(month) {
+    window.location.href = `ca.html?month=${month}`;
+}
+
+</script>
+
+</body>
+</html>
