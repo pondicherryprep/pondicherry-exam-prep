@@ -340,10 +340,18 @@ questions.forEach((q,index)=>{
 let div=document.createElement("div");
 div.classList.add("question");
 
-div.innerHTML=`
-<h4>Question ${index+1}</h4>
-<p>${q.q.replace(/\n/g,"<br>")}</p>
-`;
+div.innerHTML = `<h4>Question ${index+1}</h4>`;
+
+if(q.type === "match"){
+    div.innerHTML += `<p><b>${q.title}</b></p>`;
+
+    q.match.forEach(pair=>{
+        div.innerHTML += `<p>${pair[0]} — ${pair[1]}</p>`;
+    });
+}
+else{
+    div.innerHTML += `<p>${q.q.replace(/\n/g,"<br>")}</p>`;
+}
 
 let optionsDiv=document.createElement("div");
 optionsDiv.classList.add("options");
