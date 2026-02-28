@@ -35,281 +35,108 @@ button {
 <script>
 
 const questions = [
-
 {
 question: "Three empires shattered after WWI:",
 options: ["Germany, Austria-Hungary, Ottomans", "Germany, Russia, Italy", "Spain, Portugal, Italy", "France, Austria, Germany"],
 answer: 0
 },
-
 {
 question: "“Imperialism is highest stage of capitalism”:",
 options: ["Lenin", "Marx", "Mao", "Sun Yat Sen"],
 answer: 0
 },
-
 {
 question: "Battle of Marne known for:",
 options: ["Air warfare", "Trench warfare", "Submarine warfare", "Ship warfare"],
 answer: 1
 },
-
 {
 question: "First Secretary General:",
 options: ["Britain", "France", "USA", "Netherlands"],
 answer: 0
 },
-
 {
 question: "Expelled for attacking Finland:",
 options: ["Germany", "Russia", "Italy", "France"],
 answer: 1
 },
-
 {
 question: "Albania created by Treaty of:",
 options: ["Versailles", "London", "Brest-Litovsk", "Bucharest"],
 answer: 1
 },
-
 {
 question: "Mixed population in Balkans:",
 options: ["Albania", "Macedonia", "Serbia", "Bulgaria"],
 answer: 1
 },
-
 {
 question: "Tannenberg losses:",
 options: ["Germany", "Russia", "France", "Britain"],
 answer: 1
 },
-
 {
 question: "France PM in Paris Conference:",
 options: ["Wilson", "Lloyd George", "Clemenceau", "Orlando"],
 answer: 2
 },
-
 {
 question: "Which of the following is correct? i. Turkish Empire contained non-Turkish people ii. Turkey fought with Central Powers iii. Turkey tried to attack Suez Canal",
 options: ["i, ii and iii are correct", "i and ii are correct", "i and iii are correct", "ii and iii are correct"],
 answer: 0
 },
-
 {
 question: "Treaty of Brest-Litovsk:",
 options: ["Russia–Germany", "France–Germany", "Turkey–Britain", "Austria–Italy"],
 answer: 0
 },
-
 {
 question: "Jingoism:",
 options: ["Germany", "France", "England", "Italy"],
 answer: 2
 },
-
 {
 question: "Kemal Pasha:",
 options: ["Russia", "Turkey", "Germany", "France"],
 answer: 1
 },
-
 {
 question: "Emden bombarded:",
 options: ["Calcutta", "Bombay", "Madras", "Karachi"],
 answer: 2
 },
-
 {
 question: "Hall of Mirrors:",
 options: ["Geneva", "London", "Versailles", "Hague"],
 answer: 2
 },
-
 {
 question: "The slogan “Bread, Peace and Land” was given by:",
 options: ["Trotsky", "Lenin", "Stalin", "Kerensky"],
 answer: 1
 },
-
 {
 question: "The Treaty of Sevres was signed with:",
 options: ["Germany", "Turkey", "Austria", "Hungary"],
 answer: 1
 },
-
 {
 question: "League of Nations headquarters was at:",
 options: ["Paris", "London", "Geneva", "Brussels"],
 answer: 2
 },
-
 {
 question: "Leader who withdrew Germany from League of Nations in 1933:",
 options: ["Benito Mussolini", "Joseph Stalin", "Adolf Hitler", "Winston Churchill"],
 answer: 2
 }
-
 ];
 
-// ===== ELEMENTS =====
-let form = document.getElementById("quizForm");
-let resultBox = document.getElementById("result");
-let timerDisplay = document.getElementById("time");
-
+// ===== VARIABLES =====
+let form, resultBox, timerDisplay;
 let timerInterval;
 let totalTime = questions.length * 10;
 let timeLeft = totalTime;
-
-
-// ===== CHECK IF ALREADY ATTEMPTED =====
-
-
-
-// ===== SUBMIT QUIZ =====
-function submitQuiz(){
-
-    sessionStorage.removeItem("inProgress");
-    clearInterval(timerInterval);
-
-    let score = 0;
-    let correctCount = 0;
-    let wrongCount = 0;
-    let notAnsweredCount = 0;
-
-    questions.forEach((q, index) => {
-
-        let selected = document.querySelector(`input[name="q${index}"]:checked`);
-        let selectedValue = selected ? parseInt(selected.value) : null;
-
-        let questionDiv = document.getElementsByClassName("question")[index];
-
-        let oldResult = questionDiv.querySelector(".answerResult");
-        if(oldResult) oldResult.remove();
-
-        let resultText = document.createElement("div");
-        resultText.classList.add("answerResult");
-
-        if(selectedValue === null){
-
-    notAnsweredCount++;
-
-    resultText.innerHTML = `
-        <p style="color:orange;"><b>Not Answered</b></p>
-        <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>
-    `;
-}
-        else if(selectedValue === q.answer){
-
-            score += 1;
-            correctCount++;
-            resultText.innerHTML = `
-                <p style="color:green;"><b>✔ Correct (+1)</b></p>
-            `;
-
-        }
-        else{
-
-            score -= 0.25;
-            wrongCount++;
-            resultText.innerHTML = `
-                <p style="color:red;"><b>✘ Wrong (-0.25)</b></p>
-                <p>Correct Answer: ${q.options[q.answer]}</p>
-            `;
-        }
-
-        questionDiv.appendChild(resultText);
-    });
-
-    score = score.toFixed(2);
-
-    resultBox.innerHTML = `
-        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
-            <h3>Final Score: ${score} / ${questions.length}</h3>
-            <p>✔ Correct: ${correctCount}</p>
-            <p>✘ Wrong: ${wrongCount}</p>
-            <p>⭕ Not Answered: ${notAnsweredCount}</p>
-            <button onclick="reattempt()">Reattempt Test</button>
-        </div>
-    `;
-
-    // ===== STORE ATTEMPT DATA =====
-
-    let storedData = localStorage.getItem("unit1Result");
-    let resultData = storedData ? JSON.parse(storedData) : { attempts: [] };
-
-    resultData.attempts.push({
-        score: score,
-        correct: correctCount,
-        wrong: wrongCount,
-        notAnswered: notAnsweredCount,
-        answers: questions.map((q, index) => {
-            let selected = document.querySelector(`input[name="q${index}"]:checked`);
-            return selected ? parseInt(selected.value) : null;
-        })
-    });
-
-    localStorage.setItem("unit1Result", JSON.stringify(resultData));
-
-}  // <<< This closes submitQuiz properly
-
-
-
-// ===== REATTEMPT =====
-function reattempt(){
-    sessionStorage.setItem("inProgress", "true");
-    location.reload();
-}
-
-// ===== SHOW PREVIOUS ATTEMPT =====
-function showPreviousAttempt(){
-
-    let data = JSON.parse(localStorage.getItem("unit1Result"));
-    let lastAttempt = data.attempts[data.attempts.length - 1];
-
-    loadQuestions();
-
-    // Fill previous selected answers
-    lastAttempt.answers.forEach((ans, index) => {
-        if(ans !== null){
-            let option = document.querySelector(`input[name="q${index}"][value="${ans}"]`);
-            if(option) option.checked = true;
-        }
-    });
-
-    // Stop timer text
-    timerDisplay.innerText = "Completed";
-
-    // Show stored result
-    resultBox.innerHTML = `
-        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
-            <h3>Final Score: ${lastAttempt.score} / ${questions.length}</h3>
-            <p>✔ Correct: ${lastAttempt.correct}</p>
-            <p>✘ Wrong: ${lastAttempt.wrong}</p>
-            <p>⭕ Not Answered: ${lastAttempt.notAnswered}</p>
-            <p><b>Total Attempts:</b> ${data.attempts.length}</p>
-            <button onclick="reattempt()">Reattempt Test</button>
-        </div>
-    `;
-}
-
-// ===== INITIALIZE TEST =====
-window.onload = function() {
-let isTakingTest = sessionStorage.getItem("inProgress");
-let storedData = localStorage.getItem("unit1Result");
-
-if(isTakingTest === "true"){
-    loadQuestions();
-    timeLeft = totalTime;
-    startTimer();
-}
-else if(storedData){
-    showPreviousAttempt();
-}
-else{
-    loadQuestions();
-    startTimer();
-}
 
 // ===== LOAD QUESTIONS =====
 function loadQuestions(){
@@ -333,10 +160,8 @@ function loadQuestions(){
     });
 }
 
-
 // ===== START TIMER =====
 function startTimer(){
-
     timerDisplay.innerText = timeLeft;
 
     timerInterval = setInterval(()=>{
@@ -347,9 +172,125 @@ function startTimer(){
             clearInterval(timerInterval);
             submitQuiz();
         }
-
     },1000);
-}  
+}
+
+// ===== SUBMIT QUIZ =====
+function submitQuiz(){
+
+    sessionStorage.removeItem("inProgress");
+    clearInterval(timerInterval);
+
+    let score = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let notAnsweredCount = 0;
+
+    questions.forEach((q, index) => {
+
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
+        let selectedValue = selected ? parseInt(selected.value) : null;
+
+        let questionDiv = document.getElementsByClassName("question")[index];
+
+        let resultText = document.createElement("div");
+
+        if(selectedValue === null){
+            notAnsweredCount++;
+            resultText.innerHTML = `<p style="color:orange;"><b>Not Answered</b></p>
+                                    <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>`;
+        }
+        else if(selectedValue === q.answer){
+            score += 1;
+            correctCount++;
+            resultText.innerHTML = `<p style="color:green;"><b>✔ Correct (+1)</b></p>`;
+        }
+        else{
+            score -= 0.25;
+            wrongCount++;
+            resultText.innerHTML = `<p style="color:red;"><b>✘ Wrong (-0.25)</b></p>
+                                    <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>`;
+        }
+
+        questionDiv.appendChild(resultText);
+    });
+
+    score = score.toFixed(2);
+
+    resultBox.innerHTML = `
+        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
+            <h3>Final Score: ${score} / ${questions.length}</h3>
+            <p>✔ Correct: ${correctCount}</p>
+            <p>✘ Wrong: ${wrongCount}</p>
+            <p>⭕ Not Answered: ${notAnsweredCount}</p>
+            <button onclick="reattempt()">Reattempt Test</button>
+        </div>
+    `;
+
+    let storedData = localStorage.getItem("unit1Result");
+    let resultData = storedData ? JSON.parse(storedData) : { attempts: [] };
+
+    resultData.attempts.push({
+        score: score,
+        correct: correctCount,
+        wrong: wrongCount,
+        notAnswered: notAnsweredCount
+    });
+
+    localStorage.setItem("unit1Result", JSON.stringify(resultData));
+}
+
+// ===== REATTEMPT =====
+function reattempt(){
+    sessionStorage.setItem("inProgress", "true");
+    location.reload();
+}
+
+// ===== SHOW PREVIOUS ATTEMPT =====
+function showPreviousAttempt(){
+
+    let data = JSON.parse(localStorage.getItem("unit1Result"));
+    let lastAttempt = data.attempts[data.attempts.length - 1];
+
+    timerDisplay.innerText = "Completed";
+
+    resultBox.innerHTML = `
+        <div style="background:#f0f0f0; padding:15px; margin-bottom:20px;">
+            <h3>Final Score: ${lastAttempt.score} / ${questions.length}</h3>
+            <p>✔ Correct: ${lastAttempt.correct}</p>
+            <p>✘ Wrong: ${lastAttempt.wrong}</p>
+            <p>⭕ Not Answered: ${lastAttempt.notAnswered}</p>
+            <p><b>Total Attempts:</b> ${data.attempts.length}</p>
+            <button onclick="reattempt()">Reattempt Test</button>
+        </div>
+    `;
+}
+
+// ===== INITIALIZE AFTER PAGE LOAD =====
+window.onload = function(){
+
+    form = document.getElementById("quizForm");
+    resultBox = document.getElementById("result");
+    timerDisplay = document.getElementById("time");
+
+    let isTakingTest = sessionStorage.getItem("inProgress");
+    let storedData = localStorage.getItem("unit1Result");
+
+    if(isTakingTest === "true"){
+        loadQuestions();
+        timeLeft = totalTime;
+        startTimer();
+    }
+    else if(storedData){
+        showPreviousAttempt();
+    }
+    else{
+        loadQuestions();
+        startTimer();
+    }
+
+};
+
 </script>
 
 </body>
