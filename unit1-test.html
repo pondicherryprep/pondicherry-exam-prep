@@ -163,7 +163,7 @@ let timeLeft = totalTime;
 
 
 // ===== CHECK IF ALREADY ATTEMPTED =====
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function() {
 
     let isTakingTest = sessionStorage.getItem("inProgress");
     let storedData = localStorage.getItem("unit1Result");
