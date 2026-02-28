@@ -2,31 +2,74 @@
 <html>
 <head>
 <title>Unit 1 Test - Laws of Motion</title>
+
 <style>
 body {
     font-family: Arial, sans-serif;
     padding: 20px;
+    line-height: 1.6;
 }
+
+h2 {
+    text-align: center;
+}
+
 .question {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
+
+.question p {
+    margin: 6px 0;
+}
+
+.statement {
+    margin-left: 20px;
+}
+
+.match-table {
+    margin-left: 20px;
+    border-collapse: collapse;
+}
+
+.match-table td {
+    padding: 4px 25px 4px 0;
+}
+
+.options {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.options label {
+    display: block;
+    margin-bottom: 5px;
+}
+
 .timer {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: red;
+    margin-bottom: 15px;
 }
-button {
-    padding: 10px 15px;
-    margin-top: 10px;
-    cursor: pointer;
-}
+
 .resultBox {
     background:#f0f0f0;
     padding:15px;
     margin-top:20px;
+    border-radius:6px;
+}
+
+button {
+    padding: 8px 14px;
+    margin-top: 10px;
+    cursor: pointer;
 }
 </style>
 </head>
+
 <body>
 
 <h2>UNIT 1 – LAWS OF MOTION</h2>
@@ -43,52 +86,30 @@ const questions = [
 
 {
 q: `1. Consider the following statements regarding Inertia:
-The resistance of a body to change its state of rest is called inertia of rest.
-An athlete running some distance before jumping is an example of inertia of direction.
-When a branch is shaken, fruits fall down due to inertia of motion.
+A) The resistance of a body to change its state of rest is called inertia of rest.
+B) An athlete running some distance before jumping is an example of inertia of direction.
+C) When a branch is shaken, fruits fall down due to inertia of motion.
 Which of the statements given above is/are CORRECT?`,
-options: [
-"(A) 1 only",
-"(B) 1 and 2 only",
-"(C) 2 and 3 only",
-"(D) 1, 2 and 3"
-],
+options: ["(A) A only","(B) A and B only","(C) B and C only","(D) A, B and C"],
 answer: 0
 },
 
 {
 q: `2. Which of the following is the correct SI unit for Linear Momentum?`,
-options: [
-"(A) kg m/s^2",
-"(B) kg m/s",
-"(C) Newton-metre",
-"(D) Dyne"
-],
+options: ["(A) kg m/s²","(B) kg m/s","(C) Newton-metre","(D) Dyne"],
 answer: 1
 },
 
 {
-q: `3. Match the following Physics terms with their definitions/formulas:
-
-List I (Term)
-i. Impulse
-ii. Torque
-iii. Couple
-iv. Newton's 2nd Law
-
-List II (Definition/Formula)
-a. Turning effect of force
-b. Product of Force and Time
-c. Mass * Acceleration
-d. Two equal and opposite parallel forces
-
-Select the correct option:`,
-options: [
-"(A) i-b, ii-a, iii-d, iv-c",
-"(B) i-a, ii-b, iii-c, iv-d",
-"(C) i-b, ii-d, iii-a, iv-c",
-"(D) i-c, ii-a, iii-d, iv-b"
+type: "match",
+title: "3. Match the following Physics terms with their definitions/formulas:",
+match: [
+["i. Impulse","a. Turning effect of force"],
+["ii. Torque","b. Product of Force and Time"],
+["iii. Couple","c. Mass × Acceleration"],
+["iv. Newton's 2nd Law","d. Two equal and opposite parallel forces"]
 ],
+options: ["(A) i-b, ii-a, iii-d, iv-c","(B) i-a, ii-b, iii-c, iv-d","(C) i-b, ii-d, iii-a, iv-c","(D) i-c, ii-a, iii-d, iv-b"],
 answer: 0
 },
 
@@ -105,220 +126,153 @@ answer: 0
 },
 
 {
-q: `5. Consider the following cases of a person in a lift:
-If the lift moves upward with acceleration 'a', apparent weight (R) is greater than actual weight.
-If the lift is at rest, apparent weight (R) is equal to actual weight.
-If the lift falls freely (a = g), apparent weight (R) is zero.
-Which of the statements given above are CORRECT?`,
-options: [
-"(A) 1 and 2 only",
-"(B) 2 and 3 only",
-"(C) 1 and 3 only",
-"(D) 1, 2 and 3"
-],
+q: `5. Consider the following statements regarding a person in a lift:
+A) If the lift moves upward with acceleration 'a', apparent weight is greater than actual weight.
+B) If the lift is at rest, apparent weight equals actual weight.
+C) If the lift falls freely (a = g), apparent weight becomes zero.
+Which of the statements given above is/are CORRECT?`,
+options: ["(A) A and B only","(B) B and C only","(C) A and C only","(D) A, B and C"],
 answer: 3
 },
 
 {
-q: `6. Which of the following principles is/are involved in Rocket Propulsion?
-Newton's Third Law of Motion.
-Principle of Conservation of Linear Momentum.
-Newton's Law of Universal Gravitation.
-Select the correct answer:`,
-options: [
-"(A) 1 only",
-"(B) 1 and 2 only",
-"(C) 2 and 3 only",
-"(D) 1, 2 and 3"
-],
+q: `6. Consider the following principles regarding Rocket Propulsion:
+A) Newton's Third Law of Motion.
+B) Principle of Conservation of Linear Momentum.
+C) Newton's Law of Universal Gravitation.
+Which of the above principles is/are involved?`,
+options: ["(A) A only","(B) A and B only","(C) B and C only","(D) A, B and C"],
 answer: 1
 },
 
 {
 q: `7. Inertia of a body depends on:`,
-options: [
-"(A) weight of the object",
-"(B) acceleration due to gravity",
-"(C) mass of the object",
-"(D) Both A and B"
-],
+options: ["(A) Weight","(B) Acceleration due to gravity","(C) Mass","(D) Both A and B"],
 answer: 2
 },
 
 {
 q: `8. Impulse is equal to:`,
-options: [
-"(A) rate of change of momentum",
-"(B) rate of force and time",
-"(C) change of momentum",
-"(D) rate of change of mass"
-],
+options: ["(A) Rate of change of momentum","(B) Rate of force and time","(C) Change of momentum","(D) Rate of change of mass"],
 answer: 2
 },
 
 {
-q: `9. The unit of ‘g’ (m s⁻²) can also be expressed as:
-(Logic: From F=mg, g = F/m which is Newton/kg)`,
-options: [
-"(A) cm s⁻¹",
-"(B) N kg⁻¹",
-"(C) Nm² kg⁻¹",
-"(D) cm² s⁻²"
-],
+q: `9. The unit of ‘g’ (m s⁻²) can also be expressed as:`,
+options: ["(A) cm s⁻¹","(B) N kg⁻¹","(C) Nm² kg⁻¹","(D) cm² s⁻²"],
 answer: 1
 },
 
 {
 q: `10. To project rockets, which of the following principle(s) is/are required?`,
-options: [
-"(A) Newton’s third law of motion",
-"(B) Newton’s law of gravitation",
-"(C) Law of conservation of linear momentum",
-"(D) Both (A) and (C)"
-],
+options: ["(A) Newton’s third law","(B) Newton’s gravitation","(C) Conservation of momentum","(D) Both A and C"],
 answer: 3
 },
 
 {
-q: `11. Match the Following:
-
-List I (Law/Principle)
-i. Newton’s I law
-ii. Newton’s II law
-iii. Newton’s III law
-iv. Law of conservation of momentum
-
-List II (Application/Definition)
-a. Law of force (F=ma)
-b. Propulsion of a rocket
-c. Stable equilibrium of a body / Inertia
-d. Flying nature of bird
-
-Select the correct option:`,
-options: [
-"(A) i-c, ii-a, iii-d, iv-b",
-"(B) i-a, ii-b, iii-c, iv-d",
-"(C) i-c, ii-d, iii-a, iv-b",
-"(D) i-b, ii-a, iii-d, iv-c"
+type: "match",
+title: "11. Match the Following:",
+match: [
+["i. Newton’s I Law","a. F = ma"],
+["ii. Newton’s II Law","b. Propulsion of rocket"],
+["iii. Newton’s III Law","c. Stable equilibrium / Inertia"],
+["iv. Conservation of Momentum","d. Flying nature of bird"]
 ],
+options: ["(A) i-c, ii-a, iii-d, iv-b","(B) i-a, ii-b, iii-c, iv-d","(C) i-c, ii-d, iii-a, iv-b","(D) i-b, ii-a, iii-d, iv-c"],
 answer: 0
 },
 
 {
-q: `12. Assertion (A): The value of ‘g’ decreases as height and depth increase from the surface of the Earth.
+q: `12. Assertion (A): The value of ‘g’ decreases as height and depth increase from Earth’s surface.
 Reason (R): ‘g’ depends on the mass of the object and the Earth.`,
 options: [
-"(a) Both A and R are true and R explains A",
-"(b) Both A and R are true, but R does not explain A",
-"(c) A is true, R is false",
-"(d) A is false, R is true"
+"(A) Both A and R are true and R explains A",
+"(B) Both A and R are true, but R does not explain A",
+"(C) A is true, R is false",
+"(D) A is false, R is true"
 ],
 answer: 1
 },
 
 {
-q: `13. Identify the CORRECT statement regarding the weight of an object:`,
+q: `13. Identify the CORRECT statement regarding weight:`,
 options: [
-"(A) Weight is a scalar quantity.",
-"(B) Weight is maximum at the Equatorial region and minimum at the Poles.",
-"(C) Weight is greater at the Poles and lesser at the Equator.",
-"(D) Weight remains constant regardless of the value of 'g'."
+"(A) Weight is scalar",
+"(B) Weight is maximum at Equator",
+"(C) Weight is greater at Poles",
+"(D) Weight remains constant"
 ],
 answer: 2
 },
 
 {
-q: `14. Which of the following statements regarding a Spanner (Wrench) is CORRECT?`,
+q: `14. Which statement regarding a Spanner is CORRECT?`,
 options: [
-"(A) It is easier to turn a nut with a short-handled spanner.",
-"(B) A long-handled spanner reduces the torque required.",
-"(C) A long-handled spanner is easier to use because it increases the perpendicular distance.",
-"(D) The length of the handle has no effect on the turning force."
+"(A) Short handle easier",
+"(B) Long handle reduces torque",
+"(C) Long handle increases perpendicular distance",
+"(D) Handle length has no effect"
 ],
 answer: 2
 },
 
 {
-q: `15. Identify the INCORRECT statement regarding Astronauts in a space station:`,
+q: `15. Identify the INCORRECT statement regarding Astronauts:`,
 options: [
-"(A) Astronauts feel weightless because they are in a state of free fall.",
-"(B) There is zero gravitational force acting on the orbiting space station.",
-"(C) Both the space station and the astronauts have the same acceleration.",
-"(D) Astronauts are not actually floating but are falling freely around the Earth."
+"(A) Feel weightless due to free fall",
+"(B) Zero gravitational force acts",
+"(C) Same acceleration",
+"(D) Falling freely around Earth"
 ],
 answer: 1
 },
 
 {
-q: `16. By sign convention, the moments of force are taken as:`,
+q: `16. By sign convention, moments of force are taken as:`,
 options: [
-"(A) Positive for Clockwise and Negative for Anticlockwise.",
-"(B) Negative for Clockwise and Positive for Anticlockwise.",
-"(C) Always Positive for both.",
-"(D) Always Negative for both."
+"(A) + Clockwise",
+"(B) − Clockwise",
+"(C) Always +",
+"(D) Always −"
 ],
 answer: 1
 },
 
 {
-q: `17. A man has a mass of 100 kg. What will be his weight on the surface of the Earth? (Take g = 9.8 m/s^2)`,
-options: [
-"(A) 100 N",
-"(B) 9.8 N",
-"(C) 980 N",
-"(D) 1000 N"
-],
+q: `17. Mass = 100 kg. Weight on Earth? (g=9.8)`,
+options: ["(A) 100 N","(B) 9.8 N","(C) 980 N","(D) 1000 N"],
 answer: 2
 },
 
 {
-q: `18. A door is pushed with a force of 40 N at a point 90 cm from the hinges. Calculate the Moment of Force (Torque).`,
-options: [
-"(A) 3600 Nm",
-"(B) 3.6 Nm",
-"(C) 36 Nm",
-"(D) 40 Nm"
-],
+q: `18. 40 N force at 0.9 m. Calculate Torque.`,
+options: ["(A) 3600 Nm","(B) 3.6 Nm","(C) 36 Nm","(D) 40 Nm"],
 answer: 2
 },
 
 {
-q: `19. At what height (R') from the center of the Earth will the acceleration due to gravity become 1/4th of its value on the surface?`,
-options: [
-"(A) R' = R",
-"(B) R' = 2R",
-"(C) R' = 4R",
-"(D) R' = 0.5R"
-],
+q: `19. At what height from center will g become 1/4?`,
+options: ["(A) R","(B) 2R","(C) 4R","(D) 0.5R"],
 answer: 1
 },
 
 {
 q: `20. Consider the following statements regarding Linear Momentum:
-Linear momentum is a scalar quantity.
-The direction of momentum is always opposite to the direction of velocity.
-The SI unit of linear momentum is kg m s^{-1}.
-Which of the statements given above is/are CORRECT?`,
-options: [
-"(A) 1 and 2 only",
-"(B) 3 only",
-"(C) 1 and 3 only",
-"(D) 1, 2 and 3"
-],
+A) Linear momentum is a scalar quantity.
+B) Direction of momentum is opposite to velocity.
+C) SI unit of momentum is kg m s⁻¹.
+Which is/are CORRECT?`,
+options: ["(A) A and B only","(B) C only","(C) A and C only","(D) A, B and C"],
 answer: 1
 },
 
 {
-q: `21. Which of the following statements regarding Linear Momentum (p) is CORRECT?
-Linear Momentum is a scalar quantity because it only measures impact.
-It is defined as the product of the mass and the velocity of a moving body.
-The direction of momentum is always perpendicular to the direction of velocity.
-It helps in measuring the magnitude of a force.`,
+q: `21. Which statement regarding Linear Momentum is CORRECT?`,
 options: [
-"(A) 1 and 2 only",
-"(B) 2 and 4 only",
-"(C) 3 and 4 only",
-"(D) 1, 2, and 4"
+"(A) Scalar quantity",
+"(B) Product of mass and velocity",
+"(C) Perpendicular to velocity",
+"(D) Measures magnitude of force"
 ],
 answer: 1
 },
@@ -326,58 +280,48 @@ answer: 1
 {
 q: `22. Regarding Acceleration and Gravity, identify the CORRECT statement:`,
 options: [
-"(A) Acceleration is a scalar quantity representing the total distance covered over time.",
-"(B) Acceleration due to gravity (g) remains constant at all points on the Earth's surface.",
-"(C) Acceleration is defined as the change in velocity per unit of time (a = {v - u}/{t}).",
-"(D) Mass is a vector quantity that changes when an object moves from Earth to the Moon."
+"(A) Scalar total distance/time",
+"(B) g constant everywhere",
+"(C) a = (v − u)/t",
+"(D) Mass is vector"
 ],
 answer: 2
 },
 
 {
-q: `23. Consider the following statements about Torque and Moments:
-Torque is the turning effect of a force about a fixed point.
-Clockwise moments are traditionally taken as Positive (+).
-At equilibrium, the sum of clockwise moments equals the sum of anticlockwise moments.
-Which of the statements given above is/are CORRECT?`,
-options: [
-"(A) 1 only",
-"(B) 1 and 3 only",
-"(C) 2 and 3 only",
-"(D) 1, 2, and 3"
-],
+q: `23. Consider the following statements about Torque:
+A) Torque is turning effect of force.
+B) Clockwise moments are positive.
+C) At equilibrium, clockwise = anticlockwise.
+Which is/are CORRECT?`,
+options: ["(A) A only","(B) A and C only","(C) B and C only","(D) A, B and C"],
 answer: 1
 },
 
 {
-q: `24. Which of the following is the correct representation of Newton’s Universal Law of Gravitation?`,
+q: `24. Correct representation of Universal Law of Gravitation:`,
 options: [
-"(A) Force is inversely proportional to the product of masses.",
-"(B) Force is directly proportional to the square of the distance between centers.",
-"(C) Force is directly proportional to the product of masses and inversely proportional to the square of the distance.",
-"(D) The gravitational force depends on the medium in which the masses are placed."
+"(A) Inversely proportional to masses",
+"(B) Directly proportional to square distance",
+"(C) Directly proportional to product of masses and inversely to square distance",
+"(D) Depends on medium"
 ],
 answer: 2
 },
 
 {
-q: `25. A very large force acting for a very short interval of time is defined as:`,
-options: [
-"(A) Acceleration",
-"(B) Torque",
-"(C) Impulse",
-"(D) Inertia"
-],
+q: `25. Very large force for short time is called:`,
+options: ["(A) Acceleration","(B) Torque","(C) Impulse","(D) Inertia"],
 answer: 2
 },
 
 {
-q: `26. If a body of mass 'm' is moved from Earth to the Moon, which of the following occurs?`,
+q: `26. If body moved from Earth to Moon:`,
 options: [
-"(A) Its mass decreases but weight remains constant.",
-"(B) Both mass and weight remain constant.",
-"(C) Its mass remains constant but weight decreases.",
-"(D) Both mass and weight decrease."
+"(A) Mass decreases",
+"(B) Both constant",
+"(C) Mass constant, weight decreases",
+"(D) Both decrease"
 ],
 answer: 2
 }
@@ -398,7 +342,6 @@ window.onload = function () {
 };
 
 function loadQuestions() {
-
     form.innerHTML = "";
 
     questions.forEach((q, index) => {
@@ -406,33 +349,54 @@ function loadQuestions() {
         let div = document.createElement("div");
         div.classList.add("question");
 
-        let questionText = document.createElement("p");
-        questionText.textContent = q.q;
-        div.appendChild(questionText);
+        if (q.type === "match") {
+
+            let title = document.createElement("p");
+            title.innerText = q.title;
+            div.appendChild(title);
+
+            let table = document.createElement("table");
+            table.classList.add("match-table");
+
+            q.match.forEach(row => {
+                let tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                let td2 = document.createElement("td");
+                td1.innerText = row[0];
+                td2.innerText = row[1];
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                table.appendChild(tr);
+            });
+
+            div.appendChild(table);
+
+        } else {
+
+            let p = document.createElement("p");
+            p.innerText = q.q;
+            div.appendChild(p);
+        }
+
+        let optionsDiv = document.createElement("div");
+        optionsDiv.classList.add("options");
 
         q.options.forEach((option, i) => {
             let label = document.createElement("label");
-
-            label.innerHTML = `
-                <input type="radio" name="q${index}" value="${i}">
-                ${option}
-            `;
-
-            div.appendChild(label);
-            div.appendChild(document.createElement("br"));
+            label.innerHTML = `<input type="radio" name="q${index}" value="${i}"> ${option}`;
+            optionsDiv.appendChild(label);
         });
 
+        div.appendChild(optionsDiv);
         form.appendChild(div);
     });
 }
 
 function startTimer() {
     timerDisplay.innerText = timeLeft;
-
     timerInterval = setInterval(() => {
         timeLeft--;
         timerDisplay.innerText = timeLeft;
-
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             submitQuiz();
@@ -444,60 +408,31 @@ function submitQuiz() {
 
     clearInterval(timerInterval);
 
-    let score = 0;
-    let correctCount = 0;
-    let wrongCount = 0;
-    let notAnsweredCount = 0;
-
-    document.querySelectorAll(".resultNote").forEach(e => e.remove());
+    let score = 0, correct = 0, wrong = 0, notAnswered = 0;
 
     questions.forEach((q, index) => {
-
         let selected = document.querySelector(`input[name="q${index}"]:checked`);
-        let selectedValue = selected ? parseInt(selected.value) : null;
-
-        let questionDiv = document.getElementsByClassName("question")[index];
-
-        let resultText = document.createElement("div");
-        resultText.classList.add("resultNote");
-
-        if (selectedValue === null) {
-            notAnsweredCount++;
-            resultText.innerHTML = `
-                <p style="color:orange;"><b>Not Answered</b></p>
-                <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>
-            `;
-        }
-        else if (selectedValue === q.answer) {
-            score += 1;
-            correctCount++;
-            resultText.innerHTML = `
-                <p style="color:green;"><b>✔ Correct (+1)</b></p>
-            `;
-        }
-        else {
+        if (!selected) {
+            notAnswered++;
+        } else if (parseInt(selected.value) === q.answer) {
+            score++;
+            correct++;
+        } else {
             score -= 0.25;
-            wrongCount++;
-            resultText.innerHTML = `
-                <p style="color:red;"><b>✘ Wrong (-0.25)</b></p>
-                <p><b>Correct Answer:</b> ${q.options[q.answer]}</p>
-            `;
+            wrong++;
         }
-
-        questionDiv.appendChild(resultText);
     });
 
     score = score.toFixed(2);
 
     resultBox.innerHTML = `
-        <div class="resultBox">
-            <h3>Final Score: ${score} / ${questions.length}</h3>
-            <p>✔ Correct: ${correctCount}</p>
-            <p>✘ Wrong: ${wrongCount}</p>
-            <p>⭕ Not Answered: ${notAnsweredCount}</p>
-            <button onclick="location.reload()">Reattempt Test</button>
-        </div>
-    `;
+    <div class="resultBox">
+        <h3>Final Score: ${score} / ${questions.length}</h3>
+        <p>✔ Correct: ${correct}</p>
+        <p>✘ Wrong: ${wrong}</p>
+        <p>⭕ Not Answered: ${notAnswered}</p>
+        <button onclick="location.reload()">Reattempt Test</button>
+    </div>`;
 }
 
 </script>
