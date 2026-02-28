@@ -31,7 +31,6 @@ button {
 <button type="button" onclick="submitQuiz()">Submit</button>
 
 <h3 id="result"></h3>
-alert("Script Loaded");
 
 <script>
 
@@ -164,63 +163,7 @@ let timeLeft = totalTime;
 
 
 // ===== CHECK IF ALREADY ATTEMPTED =====
-// ===== INITIALIZE TEST =====
 
-let isTakingTest = sessionStorage.getItem("inProgress");
-let storedData = localStorage.getItem("unit1Result");
-
-if(isTakingTest === "true"){
-    loadQuestions();
-    timeLeft = totalTime;
-    startTimer();
-}
-else if(storedData){
-    showPreviousAttempt();
-}
-else{
-    loadQuestions();
-    startTimer();
-}
-
-// ===== LOAD QUESTIONS =====
-function loadQuestions(){
-    form.innerHTML = "";
-
-    questions.forEach((q, index) => {
-        let div = document.createElement("div");
-        div.classList.add("question");
-
-        div.innerHTML = `<p>${index+1}. ${q.question}</p>`;
-
-        q.options.forEach((option, i) => {
-            div.innerHTML += `
-            <label>
-                <input type="radio" name="q${index}" value="${i}">
-                ${option}
-            </label><br>`;
-        });
-
-        form.appendChild(div);
-    });
-}
-
-
-// ===== START TIMER =====
-function startTimer(){
-
-    timerDisplay.innerText = timeLeft;
-
-    timerInterval = setInterval(()=>{
-        timeLeft--;
-        timerDisplay.innerText = timeLeft;
-
-        if(timeLeft <= 0){
-            clearInterval(timerInterval);
-            submitQuiz();
-        }
-
-    },1000);
-}
 
 
 // ===== SUBMIT QUIZ =====
@@ -350,8 +293,63 @@ function showPreviousAttempt(){
     `;
 }
 
- alert("Script Loaded");
-  
+// ===== INITIALIZE TEST =====
+
+let isTakingTest = sessionStorage.getItem("inProgress");
+let storedData = localStorage.getItem("unit1Result");
+
+if(isTakingTest === "true"){
+    loadQuestions();
+    timeLeft = totalTime;
+    startTimer();
+}
+else if(storedData){
+    showPreviousAttempt();
+}
+else{
+    loadQuestions();
+    startTimer();
+}
+
+// ===== LOAD QUESTIONS =====
+function loadQuestions(){
+    form.innerHTML = "";
+
+    questions.forEach((q, index) => {
+        let div = document.createElement("div");
+        div.classList.add("question");
+
+        div.innerHTML = `<p>${index+1}. ${q.question}</p>`;
+
+        q.options.forEach((option, i) => {
+            div.innerHTML += `
+            <label>
+                <input type="radio" name="q${index}" value="${i}">
+                ${option}
+            </label><br>`;
+        });
+
+        form.appendChild(div);
+    });
+}
+
+
+// ===== START TIMER =====
+function startTimer(){
+
+    timerDisplay.innerText = timeLeft;
+
+    timerInterval = setInterval(()=>{
+        timeLeft--;
+        timerDisplay.innerText = timeLeft;
+
+        if(timeLeft <= 0){
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+
+    },1000);
+}  
 </script>
 
 </body>
