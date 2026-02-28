@@ -290,83 +290,156 @@ answer: 2
 
 ];
 
-let totalTime = questions.length * 8;
-let timeLeft = totalTime;
-let timerInterval;
+let form = document.getElementById("quizForm");
+let resultBox = document.getElementById("result");
+let timerDisplay = document.getElementById("time");
 
-window.onload = function(){
-loadQuestions();
-startTimer();
+let timerInterval;
+let totalTime = questions.length * 30;
+let timeLeft = totalTime;
+
+window.onload = function () {
+    loadQuestions();
+    startTimer();
 };
 
-function loadQuestions(){
-let form = document.getElementById("quizForm");
-form.innerHTML="";
-questions.forEach((q,index)=>{
-let div=document.createElement("div");
-div.classList.add("question");
-div.innerHTML=`<p>${q.q}</p>`;
-q.options.forEach((opt,i)=>{
-div.innerHTML+=`<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label><br>`;
-});
-form.appendChild(div);
-});
+function loadQuestions() {
+
+    form.innerHTML = "";
+
+    questions.forEach((q, index) => {
+
+        let div = document.createElement("div");
+        div.classList.add("question");
+
+        let number = document.createElement("div");
+        number.classList.add("question-number");
+        number.innerText = `Question ${index + 1}`;
+        div.appendChild(number);
+
+        if (q.type === "statements") {
+
+            let title = document.createElement("p");
+            title.innerText = q.title;
+            div.appendChild(title);
+
+            q.statements.forEach(st => {
+                let p = document.createElement("div");
+                p.classList.add("statement");
+                p.innerText = st;
+                div.appendChild(p);
+            });
+
+            let footer = document.createElement("p");
+            footer.innerText = q.footer;
+            div.appendChild(footer);
+        }
+
+        if (q.type === "match") {
+
+            let title = document.createElement("p");
+            title.innerText = q.title;
+            div.appendChild(title);
+
+            let table = document.createElement("table");
+            table.classList.add("match-table");
+
+            q.match.forEach(row => {
+                let tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                td1.innerText = row[0];
+                let td2 = document.createElement("td");
+                td2.innerText = row[1];
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                table.appendChild(tr);
+            });
+
+            div.appendChild(table);
+
+            let footer = document.createElement("p");
+            footer.innerText = q.footer;
+            div.appendChild(footer);
+        }
+
+        if (q.type === "assertion") {
+
+            let a = document.createElement("p");
+            a.innerHTML = "<b>Assertion (A):</b> " + q.assertion;
+            div.appendChild(a);
+
+            let r = document.createElement("p");
+            r.innerHTML = "<b>Reason (R):</b> " + q.reason;
+            div.appendChild(r);
+        }
+
+        let optionsDiv = document.createElement("div");
+        optionsDiv.classList.add("options");
+
+        q.options.forEach((option, i) => {
+            let label = document.createElement("label");
+            label.innerHTML = `
+                <input type="radio" name="q${index}" value="${i}">
+                ${option}
+            `;
+            optionsDiv.appendChild(label);
+        });
+
+        div.appendChild(optionsDiv);
+        form.appendChild(div);
+    });
 }
 
-function startTimer(){
-document.getElementById("time").innerText=timeLeft;
-timerInterval=setInterval(()=>{
-timeLeft--;
-document.getElementById("time").innerText=timeLeft;
-if(timeLeft<=0){
-clearInterval(timerInterval);
-submitQuiz();
-}
-},1000);
-}
+function startTimer() {
 
-function submitQuiz(){
-clearInterval(timerInterval);
+    timerDisplay.innerText = timeLeft;
 
-let score=0,correct=0,wrong=0,notAnswered=0;
-document.querySelectorAll(".resultNote").forEach(e=>e.remove());
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.innerText = timeLeft;
 
-questions.forEach((q,index)=>{
-let selected=document.querySelector(`input[name="q${index}"]:checked`);
-let questionDiv=document.getElementsByClassName("question")[index];
-let result=document.createElement("div");
-result.classList.add("resultNote");
-
-if(!selected){
-notAnswered++;
-result.innerHTML=`<p style="color:orange;"><b>Not Answered</b></p>
-<p><b>Correct Answer:</b> ${q.options[q.answer]}</p>`;
-}
-else if(parseInt(selected.value)===q.answer){
-score+=1;
-correct++;
-result.innerHTML=`<p style="color:green;"><b>✔ Correct (+1)</b></p>`;
-}
-else{
-score-=0.25;
-wrong++;
-result.innerHTML=`<p style="color:red;"><b>✘ Wrong (-0.25)</b></p>
-<p><b>Correct Answer:</b> ${q.options[q.answer]}</p>`;
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            submitQuiz();
+        }
+    }, 1000);
 }
 
-questionDiv.appendChild(result);
-});
+function submitQuiz() {
 
-score=score.toFixed(2);
+    clearInterval(timerInterval);
 
-document.getElementById("result").innerHTML=`
-<div class="resultBox">
-<h3>Final Score: ${score} / ${questions.length}</h3>
-<p>✔ Correct: ${correct}</p>
-<p>✘ Wrong: ${wrong}</p>
-<p>⭕ Not Answered: ${notAnswered}</p>
-<button onclick="location.reload()">Reattempt Test</button>
-</div>`;
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
+
+    questions.forEach((q, index) => {
+
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
+
+        if (!selected) {
+            unanswered++;
+        } else {
+            let selectedValue = parseInt(selected.value);
+            if (selectedValue === q.answer) {
+                correct++;
+            } else {
+                wrong++;
+            }
+        }
+    });
+
+    resultBox.innerHTML = `
+        <div class="resultBox">
+            <h3>Test Summary</h3>
+            <p><b>Total Questions:</b> ${questions.length}</p>
+            <p><b>Correct Answers:</b> ${correct}</p>
+            <p><b>Wrong Answers:</b> ${wrong}</p>
+            <p><b>Unanswered:</b> ${unanswered}</p>
+            <h3>Final Score: ${correct} / ${questions.length}</h3>
+            <button onclick="location.reload()">Reattempt Test</button>
+        </div>
+    `;
 }
 
 </script>
