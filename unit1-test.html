@@ -164,24 +164,23 @@ let timeLeft = totalTime;
 
 
 // ===== CHECK IF ALREADY ATTEMPTED =====
-document.addEventListener("DOMContentLoaded", function() {
+// ===== INITIALIZE TEST =====
 
-    let isTakingTest = sessionStorage.getItem("inProgress");
-    let storedData = localStorage.getItem("unit1Result");
+let isTakingTest = sessionStorage.getItem("inProgress");
+let storedData = localStorage.getItem("unit1Result");
 
-    if(isTakingTest === "true"){
-        loadQuestions();
-        timeLeft = totalTime;
-        startTimer();
-    }
-    else if(storedData){
-        showPreviousAttempt();
-    }
-    else{
-        loadQuestions();
-        startTimer();
-    }
-});
+if(isTakingTest === "true"){
+    loadQuestions();
+    timeLeft = totalTime;
+    startTimer();
+}
+else if(storedData){
+    showPreviousAttempt();
+}
+else{
+    loadQuestions();
+    startTimer();
+}
 
 // ===== LOAD QUESTIONS =====
 function loadQuestions(){
