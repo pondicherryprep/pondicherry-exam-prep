@@ -326,11 +326,29 @@ answer: 2
 let totalTime = questions.length * 10;
 let timeLeft = totalTime;
 let timerInterval;
+let form = document.getElementById("quizForm");
+let resultBox = document.getElementById("result");
+let timerDisplay = document.getElementById("time");
 
-window.onload=function(){
-loadQuestions();
-startTimer();
+window.onload = function(){
+
+    let isTakingTest = sessionStorage.getItem("inProgress1");
+    let storedData = localStorage.getItem("unit1Result");
+
+    if(isTakingTest === "true"){
+        loadQuestions();
+        timeLeft = totalTime;
+        startTimer();
+    }
+    else if(storedData){
+        showPreviousAttempt();
+    }
+    else{
+        loadQuestions();
+        startTimer();
+    }
 };
+;
 
 function loadQuestions(){
 let form=document.getElementById("quizForm");
@@ -385,7 +403,7 @@ submitQuiz();
 }
 
 function submitQuiz(){
-
+sessionStorage.removeItem("inProgress1");
 clearInterval(timerInterval);
 
 let score=0,correct=0,wrong=0,unanswered=0;
@@ -440,6 +458,30 @@ document.getElementById("result").innerHTML=`
 <button onclick="location.reload()">Reattempt Test</button>
 </div>
 `;
+localStorage.setItem("unit1Result", JSON.stringify({
+    score, correct, wrong, unanswered
+}));
+function reattempt(){
+    sessionStorage.setItem("inProgress1", "true");
+    location.reload();
+}
+
+function showPreviousAttempt(){
+
+    let data = JSON.parse(localStorage.getItem("unit1Result"));
+    loadQuestions();
+    timerDisplay.innerText = "Completed";
+
+    resultBox.innerHTML = `
+        <div class="resultBox">
+            <h3>Final Score: ${data.score} / ${questions.length}</h3>
+            <p>✔ Correct: ${data.correct}</p>
+            <p>✘ Wrong: ${data.wrong}</p>
+            <p>⭕ Not Answered: ${data.unanswered}</p>
+            <button onclick="reattempt()">Reattempt Test</button>
+        </div>
+    `;
+}
 
 }
 
