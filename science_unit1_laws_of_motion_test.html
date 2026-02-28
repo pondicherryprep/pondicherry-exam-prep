@@ -461,6 +461,8 @@ document.getElementById("result").innerHTML=`
 localStorage.setItem("unit1Result", JSON.stringify({
     score, correct, wrong, unanswered
 }));
+
+}
 function reattempt(){
     sessionStorage.setItem("inProgress1", "true");
     location.reload();
@@ -482,9 +484,6 @@ function showPreviousAttempt(){
         </div>
     `;
 }
-
-}
-
 </script>
 </body>
 </html>
